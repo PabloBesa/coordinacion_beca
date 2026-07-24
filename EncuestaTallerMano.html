@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encuesta · Taller de Cadáver de Mano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2744;
+    --gold: #c8973a;
+    --cream: #faf8f3;
+    --uc-blue: #307fe2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Source Serif 4', serif;
+    background: var(--navy);
+    color: var(--navy);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 24px 16px 60px;
+  }
+  .wrap { max-width: 480px; width: 100%; }
+  header {
+    text-align: center;
+    color: var(--cream);
+    margin-bottom: 24px;
+  }
+  header .eyebrow {
+    color: var(--uc-blue);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    margin: 0 0 8px;
+  }
+  header p {
+    font-size: 15px;
+    opacity: 0.85;
+    margin: 0;
+    line-height: 1.5;
+  }
+  .card {
+    background: var(--cream);
+    border: 1px solid #e3ddcf;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    margin: 0 0 4px;
+  }
+  .card .sub {
+    font-style: italic;
+    font-size: 13px;
+    color: #6b6455;
+    margin: 0 0 14px;
+  }
+  .scale {
+    display: flex;
+    gap: 6px;
+    justify-content: space-between;
+  }
+  .scale label {
+    flex: 1;
+    text-align: center;
+  }
+  .scale input { display: none; }
+  .scale span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 4px;
+    min-height: 40px;
+    border: 1px solid #d8d0bd;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: white;
+    text-align: center;
+  }
+  .scale input:checked + span {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: white;
+    font-weight: 600;
+  }
+  .scale-caption {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #8a8371;
+    margin-top: 6px;
+  }
+  .banner {
+    display: none;
+    margin-top: 14px;
+    padding: 12px;
+    background: #fbf1de;
+    border: 1px solid var(--gold);
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .banner.show { display: block; }
+  .banner textarea {
+    margin-top: 8px;
+    min-height: 70px;
+  }
+  textarea {
+    width: 100%;
+    border: 1px solid #d8d0bd;
+    border-radius: 6px;
+    padding: 12px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    resize: vertical;
+    min-height: 90px;
+    background: white;
+    color: var(--navy);
+  }
+  textarea:focus { outline: 2px solid var(--gold); }
+  button {
+    width: 100%;
+    background: var(--gold);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 16px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+  button:disabled { opacity: 0.6; }
+  .anon-note {
+    text-align: center;
+    color: var(--cream);
+    opacity: 0.7;
+    font-size: 12px;
+    margin-top: 14px;
+    font-style: italic;
+  }
+  .done {
+    display: none;
+    text-align: center;
+    color: var(--cream);
+    padding: 40px 20px;
+  }
+  .done h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 22px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Ortopedia y Traumatología UC</div>
+    <h1>Taller Cadavérico: Equipo de Mano</h1>
+  </header>
+
+  <form id="surveyForm">
+
+    <div class="card">
+      <h2>¡Gracias por participar!</h2>
+      <p class="sub">Tu tiempo y disposición hoy son muy valorados</p>
+      <p style="font-size:15px; line-height:1.6; margin:0;">Queremos que este taller siga mejorando para los próximos residentes, y tu opinión honesta es la mejor forma de lograrlo. La encuesta es anónima y toma menos de un minuto.</p>
+    </div>
+
+    <div class="card">
+      <h2>Experiencia de aprendizaje</h2>
+      <p class="sub">¿Qué tan buena fue la instancia como experiencia de aprendizaje?</p>
+      <div class="scale" data-field="experiencia">
+        <label><input type="radio" name="experiencia" value="1" required><span>1</span></label>
+        <label><input type="radio" name="experiencia" value="2"><span>2</span></label>
+        <label><input type="radio" name="experiencia" value="3"><span>3</span></label>
+        <label><input type="radio" name="experiencia" value="4"><span>4</span></label>
+        <label><input type="radio" name="experiencia" value="5"><span>5</span></label>
+        <label><input type="radio" name="experiencia" value="6"><span>6</span></label>
+        <label><input type="radio" name="experiencia" value="7"><span>7</span></label>
+      </div>
+      <div class="scale-caption"><span>1 · Mala</span><span>7 · Excelente</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Calidad docente</h2>
+      <p class="sub">¿Cómo evalúas la calidad de la enseñanza del equipo docente?</p>
+      <div class="scale" data-field="docencia">
+        <label><input type="radio" name="docencia" value="1" required><span>1</span></label>
+        <label><input type="radio" name="docencia" value="2"><span>2</span></label>
+        <label><input type="radio" name="docencia" value="3"><span>3</span></label>
+        <label><input type="radio" name="docencia" value="4"><span>4</span></label>
+        <label><input type="radio" name="docencia" value="5"><span>5</span></label>
+        <label><input type="radio" name="docencia" value="6"><span>6</span></label>
+        <label><input type="radio" name="docencia" value="7"><span>7</span></label>
+      </div>
+      <div class="scale-caption"><span>1 · Mala</span><span>7 · Excelente</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Duración</h2>
+      <p class="sub">¿Cómo sentiste la duración del taller?</p>
+      <div class="scale" data-field="duracion">
+        <label><input type="radio" name="duracion" value="Muy corta" required><span style="font-size:12px;">Muy corta</span></label>
+        <label><input type="radio" name="duracion" value="Adecuada"><span style="font-size:12px;">Adecuada</span></label>
+        <label><input type="radio" name="duracion" value="Muy larga"><span style="font-size:12px;">Muy larga</span></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Contenidos</h2>
+      <p class="sub">¿Los contenidos cubiertos fueron los que esperabas o necesitabas?</p>
+      <div class="scale" data-field="contenidos">
+        <label><input type="radio" name="contenidos" value="Sí" required><span style="font-size:14px;">Sí</span></label>
+        <label><input type="radio" name="contenidos" value="Parcialmente"><span style="font-size:14px;">Parcial</span></label>
+        <label><input type="radio" name="contenidos" value="No"><span style="font-size:14px;">No</span></label>
+      </div>
+      <div class="banner" id="contenidosBanner">
+        ¿Qué esperabas o necesitabas que no se haya cubierto?
+        <textarea name="contenidosDetalle" placeholder="Escribe aquí..."></textarea>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>¿Qué funcionó bien?</h2>
+      <p class="sub">Lo que valdría la pena repetir</p>
+      <textarea name="funciono" placeholder="Escribe aquí..."></textarea>
+    </div>
+
+    <div class="card">
+      <h2>¿Qué se puede mejorar?</h2>
+      <p class="sub">Lo que no funcionó o se podría hacer distinto</p>
+      <textarea name="mejorar" placeholder="Escribe aquí..."></textarea>
+    </div>
+
+    <div class="card">
+      <h2>Para el futuro</h2>
+      <p class="sub">¿Qué agregarías a una próxima versión de este taller?</p>
+      <textarea name="futuro" placeholder="Escribe aquí..."></textarea>
+    </div>
+
+    <button type="submit" id="submitBtn">Enviar respuesta</button>
+    <p class="anon-note">Esta encuesta es completamente anónima. No se registra tu nombre.</p>
+  </form>
+
+  <div class="done" id="doneMsg">
+    <h2>¡Gracias!</h2>
+    <p>Tu respuesta fue enviada. Apreciamos mucho tu feedback para seguir mejorando el taller.</p>
+  </div>
+
+</div>
+
+<script>
+  // Replace with your Google Apps Script Web App URL
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw8GAVo9KoAHkg74m5RH91ES65xW1ZVSSdDnUzxb9hWRIAC7riRt7St29IxrvhGoBcx/exec";
+
+  const form = document.getElementById('surveyForm');
+  const btn = document.getElementById('submitBtn');
+  const contenidosBanner = document.getElementById('contenidosBanner');
+
+  form.querySelectorAll('input[name="contenidos"]').forEach(function(input) {
+    input.addEventListener('change', function() {
+      if (input.value === 'Parcialmente' || input.value === 'No') {
+        contenidosBanner.classList.add('show');
+      } else {
+        contenidosBanner.classList.remove('show');
+      }
+    });
+  });
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = "Enviando...";
+
+    const data = new FormData(form);
+    const payload = {
+      experiencia: data.get('experiencia'),
+      docencia: data.get('docencia'),
+      duracion: data.get('duracion'),
+      contenidos: data.get('contenidos'),
+      contenidosDetalle: data.get('contenidosDetalle') || '',
+      funciono: data.get('funciono') || '',
+      mejorar: data.get('mejorar') || '',
+      futuro: data.get('futuro') || '',
+      timestamp: new Date().toISOString()
+    };
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).finally(function() {
+      form.style.display = 'none';
+      document.getElementById('doneMsg').style.display = 'block';
+    });
+  });
+</script>
+
+</body>
+</html>
