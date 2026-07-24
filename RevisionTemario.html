@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisión del Temario — Traumatología UC</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#1a2744;--navy-mid:#243560;--gold:#c8973a;--gold-light:#e8c47a;--gold-pale:#f5e9cc;
+    --cream:#faf8f3;--warm-gray:#f0ece3;--text:#2c2c2c;--text-muted:#5a5a5a;--border:#d4c9b0;
+    --green:#2a6041;--green-light:#e8f2ec;--red:#8b2e2e;--red-light:#f5eaea;--purple:#4a3b6b;--purple-light:#ece8f5;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Source Serif 4',Georgia,serif;background:var(--cream);color:var(--text);font-size:15px;line-height:1.7;}
+  .page{max-width:480px;margin:0 auto;background:#fff;min-height:100vh;}
+
+  .header{background:var(--navy);padding:26px 22px 20px;position:relative;overflow:hidden;}
+  .header::after{content:'';position:absolute;bottom:0;right:0;width:150px;height:100%;
+    background:linear-gradient(135deg,transparent 50%,rgba(200,151,58,.12) 100%);}
+  .header-tag{font-size:9px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+  .header h1{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:#fff;line-height:1.2;}
+  .header h1 span{color:var(--gold-light);}
+  .header-sub{font-size:11.5px;color:rgba(255,255,255,.6);font-style:italic;margin-top:3px;}
+  .gold-rule{width:44px;height:3px;background:var(--gold);margin-top:12px;}
+
+  .content{padding:22px 20px 60px;}
+  .screen{display:none;} .screen.active{display:block;}
+
+  .q{font-family:'Playfair Display',serif;font-size:15px;color:var(--navy);margin-bottom:14px;}
+  .who{display:flex;flex-direction:column;gap:8px;}
+  .who button{background:var(--cream);border:1px solid var(--border);border-radius:9px;padding:12px 14px;
+    font-family:'Source Serif 4',serif;font-size:14px;color:var(--navy);cursor:pointer;text-align:left;transition:all .16s;}
+  .who button:hover{border-color:var(--gold);background:var(--warm-gray);}
+  .who button b{font-family:'Playfair Display',serif;font-weight:600;}
+  .who button span{display:block;font-size:11px;color:var(--text-muted);font-style:italic;margin-top:1px;}
+
+  .backlink{font-size:11.5px;color:var(--gold);font-weight:600;cursor:pointer;display:inline-block;margin-bottom:14px;}
+  .backlink:hover{text-decoration:underline;}
+
+  .section-header{display:flex;align-items:center;gap:11px;margin-bottom:16px;padding-bottom:8px;border-bottom:1.5px solid var(--border);}
+  .section-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--gold);opacity:.75;}
+  .section-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--navy);}
+  .section-title em{display:block;font-family:'Source Serif 4',serif;font-size:10.5px;font-weight:400;font-style:italic;color:var(--text-muted);margin-top:1px;}
+
+  /* rings */
+  .ringcard{display:flex;align-items:center;gap:14px;background:var(--cream);border:1px solid var(--border);
+    border-radius:9px;padding:13px 15px;margin-bottom:10px;cursor:pointer;transition:all .16s;}
+  .ringcard:hover{border-color:var(--gold);}
+  .ringcard.done{background:var(--green-light);border-color:#bcd9c8;}
+  .ring{position:relative;flex-shrink:0;width:52px;height:52px;}
+  .ring svg{transform:rotate(-90deg);}
+  .ring .bg{fill:none;stroke:var(--warm-gray);stroke-width:5;}
+  .ring .fg{fill:none;stroke:var(--gold);stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset .5s;}
+  .ringcard.done .ring .fg{stroke:var(--green);}
+  .ring .pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:'Playfair Display',serif;font-size:12.5px;font-weight:700;color:var(--navy);}
+  .ringmain{flex:1;min-width:0;}
+  .ringmain .rt{font-family:'Playfair Display',serif;font-size:14px;font-weight:600;color:var(--navy);}
+  .ringmain .rs{font-size:11px;color:var(--text-muted);font-style:italic;margin-top:1px;}
+  .ringmain .rflags{font-size:10.5px;color:var(--red);margin-top:3px;}
+
+  .total{background:var(--navy);border-radius:10px;padding:16px;margin-bottom:18px;display:flex;align-items:center;gap:15px;}
+  .total .ring .bg{stroke:rgba(255,255,255,.15);}
+  .total .ring .fg{stroke:var(--gold-light);}
+  .total .ring .pct{color:#fff;}
+  .total .tt{font-family:'Playfair Display',serif;font-size:15px;color:#fff;}
+  .total .ts{font-size:11px;color:rgba(255,255,255,.65);font-style:italic;margin-top:2px;}
+
+  /* topic list */
+  .blockhead{font-size:9.5px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold);
+    margin:18px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--border);}
+  .subhead{font-family:'Playfair Display',serif;font-size:12px;font-weight:600;color:var(--text-muted);margin:12px 0 6px;}
+  .tcard{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:12px 13px;margin-bottom:9px;}
+  .tcard.marked{background:#fff;border-color:var(--gold);}
+  .tcard.conflict{background:var(--red-light);border-color:#e0bcbc;}
+  .ttext{font-size:12.5px;line-height:1.55;color:var(--text);}
+  .tmeta{font-size:10px;color:var(--text-muted);font-style:italic;margin-top:5px;}
+  .tmeta b{font-style:normal;color:var(--navy);}
+  .levels{display:flex;gap:5px;margin-top:9px;flex-wrap:wrap;}
+  .lv{border:1px solid var(--border);background:#fff;border-radius:20px;padding:4px 11px;
+    font-family:'Playfair Display',serif;font-size:11.5px;font-weight:700;color:var(--navy);cursor:pointer;transition:all .15s;}
+  .lv:hover{border-color:var(--gold);}
+  .lv.on.r1{background:var(--green-light);border-color:var(--green);color:var(--green);}
+  .lv.on.r2{background:var(--gold-pale);border-color:var(--gold);color:#8a6420;}
+  .lv.on.r3{background:var(--navy);border-color:var(--navy);color:var(--gold-light);}
+  .lv.on.rf{background:var(--purple);border-color:var(--purple);color:#fff;}
+  .lv.flag{font-family:'Source Serif 4',serif;font-size:11px;font-weight:600;margin-left:auto;}
+  .lv.flag.on{background:var(--red);border-color:var(--red);color:#fff;}
+  .cmt{width:100%;margin-top:8px;border:1px solid var(--border);border-radius:6px;padding:7px 9px;
+    font-family:'Source Serif 4',serif;font-size:12px;background:#fff;color:var(--text);resize:vertical;min-height:34px;}
+  .cmt:focus{outline:none;border-color:var(--gold);}
+  .saved{font-size:10px;color:var(--green);font-weight:600;margin-top:5px;display:none;}
+  .tcard.ok .saved{display:block;}
+
+  .btn{width:100%;background:var(--navy);color:#fff;border:none;border-radius:9px;padding:13px;
+    font-family:'Playfair Display',serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:14px;}
+  .btn:hover{background:var(--navy-mid);}
+  .btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--border);}
+  .btn.ghost:hover{background:var(--warm-gray);}
+
+  .note{font-size:11px;font-style:italic;color:var(--text-muted);background:var(--warm-gray);
+    border-radius:7px;padding:10px 12px;margin-bottom:16px;line-height:1.55;}
+  .status{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;background:var(--navy);color:#fff;
+    font-size:12px;padding:9px 16px;border-radius:20px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:50;}
+  .status.show{opacity:1;}
+  .loading{text-align:center;padding:36px 20px;color:var(--text-muted);font-style:italic;font-size:13px;}
+  .newbox{border:1px dashed var(--border);border-radius:9px;padding:13px;margin-top:14px;background:#fff;}
+  .newbox .q{font-size:13px;margin-bottom:9px;}
+  .footer{text-align:center;font-size:10.5px;color:var(--text-muted);font-style:italic;padding:20px 20px 34px;}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="header-tag">Revisión del Temario</div>
+    <h1>Posgrado <span>Traumatología UC</span></h1>
+    <div class="header-sub">Validación de niveles por año de residencia</div>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="content">
+    <!-- 1. QUIÉN -->
+    <div class="screen active" id="s-who">
+      <div class="q">¿Quién eres?</div>
+      <div class="who" id="whoList"></div>
+    </div>
+
+    <!-- 2. CARÁTULA -->
+    <div class="screen" id="s-home">
+      <span class="backlink" data-go="who">‹ Cambiar de persona</span>
+      <div id="homeBody"></div>
+    </div>
+
+    <!-- 3. TEMAS -->
+    <div class="screen" id="s-topics">
+      <span class="backlink" data-go="home">‹ Volver a mis módulos</span>
+      <div id="topicsBody"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Revisión del Temario · Programa de Posgrado Traumatología UC<br>
+    Coordinación docente
+  </div>
+</div>
+<div class="status" id="status"></div>
+
+<script>
+const API = 'https://script.google.com/macros/s/AKfycbxDYN-zZdynKVQF5qoOocCNuufTtlHOSOkj3GmKuIMapqHNAJh7mZJVGs_m1AYpeLeq/exec';
+
+const MODULOS = {
+  adulto:{nombre:'Adulto general y trauma', revisor:'R. Vial', num:'01'},
+  hombro:{nombre:'Hombro', revisor:'A. Kuroiwa', num:'02'},
+  columna:{nombre:'Columna', revisor:'B. Delgado', num:'03'},
+  cadera:{nombre:'Cadera', revisor:'M. Carmona', num:'04'},
+  rodilla:{nombre:'Rodilla', revisor:'P. Besa', num:'05'},
+  eess:{nombre:'Mano, muñeca, codo y brazo', revisor:'J. Ananías', num:'06'},
+  typ:{nombre:'Tobillo y pie', revisor:'J. Briceño', num:'07'},
+  tumores:{nombre:'Tumores', revisor:'E. Botello', num:'08'},
+  infantil:{nombre:'Infantil', revisor:'MJ. Figueroa', num:'09'},
+  investigacion:{nombre:'Investigación', revisor:'C. Vidal', num:'10', vacio:true}
+};
+
+// nivel oficial del temario -> año sugerido
+const NIVEL2R = {'1.1':'R1','1.2':'R1','2.1':'R2','2.2':'R3','3':'R3'};
+
+let DATA = {};              // temario.json
+let STATE = {revisor:null, modulo:null, sub:null, marcas:{}, delegado:false};
+
+const $ = s => document.querySelector(s);
+function toast(msg, ms){ const el=$('#status'); el.textContent=msg; el.classList.add('show');
+  clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('show'), ms||2000); }
+function go(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $('#s-'+id).classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+/* ---------- backend ---------- */
+function jsonp(params){
+  return new Promise((resolve,reject)=>{
+    const cb = 'cb_'+Math.random().toString(36).slice(2);
+    const t = setTimeout(()=>{ cleanup(); reject(new Error('timeout')); }, 15000);
+    function cleanup(){ clearTimeout(t); delete window[cb]; if(sc.parentNode) sc.remove(); }
+    window[cb] = d => { cleanup(); resolve(d); };
+    const qs = Object.entries(params).map(([k,v])=>k+'='+encodeURIComponent(v)).join('&');
+    const sc = document.createElement('script');
+    sc.src = API+'?'+qs+'&callback='+cb;
+    sc.onerror = ()=>{ cleanup(); reject(new Error('network')); };
+    document.body.appendChild(sc);
+  });
+}
+function post(payload){
+  return fetch(API, {method:'POST', mode:'no-cors',
+    headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload)});
+}
+
+/* ---------- carga ---------- */
+async function boot(){
+  const p = new URLSearchParams(location.search);
+  try{
+    const r = await fetch('temario.json');
+    DATA = await r.json();
+  }catch(e){
+    $('#whoList').innerHTML = '<div class="loading">No pude cargar <b>temario.json</b>.<br>Debe estar en la misma carpeta que esta página.</div>';
+    return;
+  }
+  renderWho();
+  const rv = p.get('revisor');
+  if(rv){
+    STATE.revisor = rv;
+    STATE.delegado = p.get('delegado')==='1';
+    await cargarMarcas();
+    const mod = p.get('modulo'), sub = p.get('sub');
+    if(mod && sub){ STATE.modulo=mod; STATE.sub=sub; renderTopics(); go('topics'); }
+    else { renderHome(); go('home'); }
+  }
+}
+
+async function cargarMarcas(){
+  try{
+    const d = await jsonp({revisor:STATE.revisor});
+    STATE.marcas = (d && d.marcas) ? d.marcas : {};
+  }catch(e){ STATE.marcas = {}; toast('Sin conexión: se guardará igual',2600); }
+}
+
+/* ---------- pantalla 1 ---------- */
+function renderWho(){
+  $('#whoList').innerHTML = Object.entries(MODULOS).map(([k,m])=>
+    `<button data-mod="${k}"><b>${esc(m.revisor)}</b><span>${esc(m.nombre)}</span></button>`).join('')
+    + `<button data-mod="__otro"><b>Otra persona</b><span>Entré por un link compartido</span></button>`;
+  $('#whoList').onclick = async e=>{
+    const b = e.target.closest('button'); if(!b) return;
+    const k = b.dataset.mod;
+    if(k==='__otro'){
+      const n = prompt('Escribe tu nombre:'); if(!n) return;
+      STATE.revisor = n.trim(); STATE.delegado = true; STATE.modulo = null;
+    } else {
+      STATE.revisor = MODULOS[k].revisor; STATE.modulo = k; STATE.delegado = false;
+    }
+    $('#whoList').innerHTML = '<div class="loading">Cargando tu avance…</div>';
+    await cargarMarcas();
+    renderWho(); renderHome(); go('home');
+  };
+}
+
+/* ---------- progreso ---------- */
+function progreso(mod, sub){
+  const m = DATA[mod]; if(!m) return {rev:0,tot:0,conf:0};
+  let tot=0, rev=0, conf=0;
+  m.subsecciones.forEach(ss=>{
+    if(sub && ss.nombre!==sub) return;
+    ss.temas.forEach(t=>{
+      tot++;
+      const k = mod+'::'+t.id, mk = STATE.marcas[k];
+      if(mk && (mk.nivel_propuesto || mk.conflictivo)) rev++;
+      if(mk && mk.conflictivo) conf++;
+    });
+  });
+  return {rev,tot,conf};
+}
+function ringHTML(pct, big){
+  const r = big?23:20, c = 2*Math.PI*r, off = c*(1-pct/100), sz = big?56:52;
+  return `<div class="ring" style="width:${sz}px;height:${sz}px">
+    <svg width="${sz}" height="${sz}"><circle class="bg" cx="${sz/2}" cy="${sz/2}" r="${r}"/>
+    <circle class="fg" cx="${sz/2}" cy="${sz/2}" r="${r}" stroke-dasharray="${c}" stroke-dashoffset="${off}"/></svg>
+    <div class="pct">${pct}%</div></div>`;
+}
+
+/* ---------- pantalla 2 ---------- */
+function renderHome(){
+  const mod = STATE.modulo;
+  let html = '';
+
+  if(!mod){
+    html = `<div class="note">Entraste como <b>${esc(STATE.revisor)}</b>. Elige el módulo que te compartieron.</div>`;
+    html += Object.entries(MODULOS).filter(([k])=>DATA[k]).map(([k,m])=>{
+      const p = progreso(k); const pct = p.tot?Math.round(p.rev/p.tot*100):0;
+      return `<div class="ringcard" data-mod="${k}">${ringHTML(pct)}
+        <div class="ringmain"><div class="rt">${esc(m.nombre)}</div>
+        <div class="rs">${p.rev} de ${p.tot} temas revisados</div></div></div>`;
+    }).join('');
+    $('#homeBody').innerHTML = html;
+    $('#homeBody').onclick = e=>{ const c=e.target.closest('.ringcard'); if(!c) return;
+      STATE.modulo=c.dataset.mod; renderHome(); };
+    return;
+  }
+
+  const M = MODULOS[mod], D = DATA[mod];
+  if(M.vacio || !D){
+    html = `<div class="section-header"><div class="section-num">${M.num}</div>
+      <div class="section-title">${esc(M.nombre)}<em>Módulo nuevo, sin temas en el temario oficial</em></div></div>
+      <div class="note">Este módulo no existe en el temario del programa, así que parte en blanco: propón los temas que crees que los becados deben dominar, con el año en que corresponde.</div>`;
+    html += nuevoBoxHTML();
+    $('#homeBody').innerHTML = html;
+    bindNuevo($('#homeBody'), mod, M.nombre);
+    return;
+  }
+
+  const P = progreso(mod), pct = P.tot?Math.round(P.rev/P.tot*100):0;
+  html = `<div class="section-header"><div class="section-num">${M.num}</div>
+    <div class="section-title">${esc(M.nombre)}<em>Revisa ${esc(STATE.revisor)}</em></div></div>`;
+  html += `<div class="total">${ringHTML(pct,true)}
+    <div><div class="tt">${P.rev} de ${P.tot} temas</div>
+    <div class="ts">${P.conf?P.conf+' marcados conflictivos':'sin conflictos marcados'}</div></div></div>`;
+
+  html += `<div class="note">Para cada tema confirma el año que corresponde (o corrígelo), y marca <b>conflictivo</b> si no estás de acuerdo o prefieres discutirlo en grupo. Se guarda solo, tema por tema.</div>`;
+
+  D.subsecciones.forEach(ss=>{
+    const p = progreso(mod, ss.nombre), pc = p.tot?Math.round(p.rev/p.tot*100):0;
+    html += `<div class="ringcard${pc===100?' done':''}" data-sub="${esc(ss.nombre)}">${ringHTML(pc)}
+      <div class="ringmain"><div class="rt">${esc(ss.nombre)}</div>
+      <div class="rs">${p.rev} de ${p.tot} temas revisados</div>
+      ${p.conf?`<div class="rflags">${p.conf} conflictivo${p.conf>1?'s':''}</div>`:''}</div></div>`;
+  });
+
+  $('#homeBody').innerHTML = html;
+  $('#homeBody').onclick = e=>{
+    const c = e.target.closest('.ringcard'); if(!c) return;
+    STATE.sub = c.dataset.sub; renderTopics(); go('topics');
+  };
+}
+
+/* ---------- pantalla 3 ---------- */
+function renderTopics(){
+  const mod = STATE.modulo, sub = STATE.sub;
+  const ss = DATA[mod].subsecciones.find(x=>x.nombre===sub);
+  const M = MODULOS[mod];
+  const p = progreso(mod, sub), pct = p.tot?Math.round(p.rev/p.tot*100):0;
+
+  let html = `<div class="section-header"><div class="section-num">${M.num}</div>
+    <div class="section-title">${esc(sub)}<em>${esc(M.nombre)} · ${p.rev} de ${p.tot} revisados (${pct}%)</em></div></div>`;
+
+  html += `<button class="btn ghost" id="shareBtn">Compartir esta subsección con alguien</button>`;
+
+  let sb = '';
+  ss.temas.forEach(t=>{
+    if(t.s && t.s!==sb){ sb=t.s; html += `<div class="blockhead">${esc(sb)}</div>`; }
+    const k = mod+'::'+t.id, mk = STATE.marcas[k] || {};
+    const sel = mk.nivel_propuesto || '';
+    const conf = mk.conflictivo ? ' on' : '';
+    const cls = mk.conflictivo ? 'conflict' : (sel ? 'marked' : '');
+    html += `<div class="tcard ${cls}" data-id="${t.id}">
+      <div class="ttext">${esc(t.t)}</div>
+      <div class="tmeta">Temario: nivel ${esc(t.n)} · sugerido <b>${NIVEL2R[t.n]||'—'}</b></div>
+      <div class="levels">
+        ${['R1','R2','R3','F'].map(l=>`<button class="lv ${l==='F'?'rf':l.toLowerCase()}${sel===l?' on':''}" data-lv="${l}">${l==='F'?'Fellow':l}</button>`).join('')}
+        <button class="lv flag${conf}" data-flag="1">Conflictivo</button>
+      </div>
+      <textarea class="cmt" placeholder="Comentario (opcional)">${esc(mk.comentario||'')}</textarea>
+      <div class="saved">Guardado ✓</div>
+    </div>`;
+  });
+
+  html += nuevoBoxHTML();
+  $('#topicsBody').innerHTML = html;
+
+  $('#shareBtn').onclick = ()=>{
+    const url = location.origin+location.pathname+'?revisor=NOMBRE&modulo='+mod+'&sub='+encodeURIComponent(sub)+'&delegado=1';
+    navigator.clipboard?.writeText(url);
+    toast('Link copiado — reemplaza NOMBRE antes de enviarlo', 4200);
+  };
+
+  $('#topicsBody').onclick = e=>{
+    const card = e.target.closest('.tcard'); if(!card) return;
+    const btn = e.target.closest('.lv'); if(!btn) return;
+    const t = ss.temas.find(x=>x.id===card.dataset.id);
+    const k = mod+'::'+t.id;
+    const mk = STATE.marcas[k] = STATE.marcas[k] || {};
+    if(btn.dataset.flag){ mk.conflictivo = !mk.conflictivo; btn.classList.toggle('on'); }
+    else {
+      const lv = btn.dataset.lv;
+      mk.nivel_propuesto = (mk.nivel_propuesto===lv) ? '' : lv;
+      card.querySelectorAll('.lv[data-lv]').forEach(b=>b.classList.toggle('on', b.dataset.lv===mk.nivel_propuesto));
+    }
+    card.className = 'tcard ok ' + (mk.conflictivo?'conflict':(mk.nivel_propuesto?'marked':''));
+    guardar(t, mk);
+  };
+
+  $('#topicsBody').onchange = e=>{
+    if(!e.target.classList.contains('cmt')) return;
+    const card = e.target.closest('.tcard'); if(!card) return;
+    const t = ss.temas.find(x=>x.id===card.dataset.id);
+    const k = mod+'::'+t.id;
+    const mk = STATE.marcas[k] = STATE.marcas[k] || {};
+    mk.comentario = e.target.value;
+    card.classList.add('ok');
+    guardar(t, mk);
+  };
+
+  bindNuevo($('#topicsBody'), mod, sub);
+}
+
+function guardar(t, mk){
+  post({revisor:STATE.revisor, modulo:STATE.modulo, tema_id:t.id, tema:t.t,
+        nivel_actual:t.n, nivel_propuesto:mk.nivel_propuesto||'',
+        conflictivo:!!mk.conflictivo, comentario:mk.comentario||'', accion:'revision'})
+    .catch(()=>toast('No se pudo guardar — revisa tu conexión', 3000));
+}
+
+/* ---------- proponer tema nuevo ---------- */
+function nuevoBoxHTML(){
+  return `<div class="newbox">
+    <div class="q">Proponer un tema nuevo</div>
+    <textarea class="cmt" id="nvTema" placeholder="Tema que falta en el temario"></textarea>
+    <div class="levels">
+      ${['R1','R2','R3','F'].map(l=>`<button class="lv ${l==='F'?'rf':l.toLowerCase()}" data-nv="${l}">${l==='F'?'Fellow':l}</button>`).join('')}
+    </div>
+    <textarea class="cmt" id="nvCmt" placeholder="Por qué debería incluirse (opcional)"></textarea>
+    <button class="btn" id="nvBtn">Enviar propuesta</button>
+  </div>`;
+}
+function bindNuevo(root, mod, sub){
+  let nivel = '';
+  root.querySelectorAll('.lv[data-nv]').forEach(b=>b.onclick=()=>{
+    nivel = (nivel===b.dataset.nv)?'':b.dataset.nv;
+    root.querySelectorAll('.lv[data-nv]').forEach(x=>x.classList.toggle('on', x.dataset.nv===nivel));
+  });
+  const btn = root.querySelector('#nvBtn'); if(!btn) return;
+  btn.onclick = ()=>{
+    const tema = root.querySelector('#nvTema').value.trim();
+    if(!tema){ toast('Escribe el tema primero'); return; }
+    post({revisor:STATE.revisor, modulo:mod, tema_id:'', tema:tema,
+          nivel_actual:sub||'', nivel_propuesto:nivel, conflictivo:false,
+          comentario:root.querySelector('#nvCmt').value.trim(), accion:'nuevo'});
+    root.querySelector('#nvTema').value=''; root.querySelector('#nvCmt').value='';
+    root.querySelectorAll('.lv[data-nv]').forEach(x=>x.classList.remove('on')); nivel='';
+    toast('Propuesta enviada ✓');
+  };
+}
+
+document.querySelectorAll('.backlink').forEach(b=>b.onclick=()=>{
+  const d = b.dataset.go;
+  if(d==='home'){ renderHome(); go('home'); }
+  else { STATE.modulo=null; go('who'); }
+});
+
+boot();
+</script>
+</body>
+</html>
