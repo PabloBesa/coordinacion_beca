@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resumen · Taller de Cadáver de Mano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2744;
+    --gold: #c8973a;
+    --cream: #faf8f3;
+    --uc-blue: #307fe2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Source Serif 4', serif;
+    background: var(--navy);
+    color: var(--navy);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 24px 16px 60px;
+  }
+  .wrap { max-width: 480px; width: 100%; }
+  header { text-align: center; color: var(--cream); margin-bottom: 24px; }
+  header .eyebrow {
+    color: var(--uc-blue);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  header h1 { font-family: 'Playfair Display', serif; font-size: 26px; margin: 0 0 8px; }
+  header p { font-size: 14px; opacity: 0.8; margin: 0; }
+
+  .card {
+    background: var(--cream);
+    border: 1px solid #e3ddcf;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    margin: 0 0 4px;
+  }
+  .card .sub {
+    font-style: italic;
+    font-size: 13px;
+    color: #6b6455;
+    margin: 0 0 14px;
+  }
+
+  /* PIN screen */
+  #pinScreen { text-align: center; color: var(--cream); }
+  #pinScreen .card { color: var(--navy); text-align: left; }
+  #pinInput {
+    width: 100%;
+    border: 1px solid #d8d0bd;
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 20px;
+    letter-spacing: 4px;
+    text-align: center;
+    font-family: 'Source Serif 4', serif;
+    margin-bottom: 12px;
+  }
+  #pinBtn, .refresh-btn {
+    width: 100%;
+    background: var(--gold);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  #pinError { color: #a33; font-size: 13px; margin-top: 8px; display: none; }
+
+  #dashboard { display: none; }
+
+  .stat-row { display: flex; gap: 12px; margin-bottom: 4px; }
+  .stat-box {
+    flex: 1;
+    text-align: center;
+    background: white;
+    border: 1px solid #e3ddcf;
+    border-radius: 8px;
+    padding: 16px 8px;
+  }
+  .stat-box .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .stat-box .label {
+    font-size: 11px;
+    color: #8a8371;
+    margin-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .mean-bar-wrap { margin-bottom: 14px; }
+  .mean-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .mean-bar-label .val {
+    font-weight: 600;
+    color: var(--gold);
+  }
+  .mean-bar-track {
+    background: #eee6d6;
+    border-radius: 5px;
+    height: 10px;
+    overflow: hidden;
+  }
+  .mean-bar-fill {
+    background: var(--gold);
+    height: 100%;
+    border-radius: 5px;
+  }
+
+  .dist-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    padding: 6px 0;
+    border-bottom: 1px solid #eee6d6;
+  }
+  .dist-row:last-child { border-bottom: none; }
+  .dist-count {
+    background: var(--navy);
+    color: white;
+    border-radius: 10px;
+    padding: 2px 10px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .comment {
+    background: white;
+    border-left: 3px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    font-style: italic;
+  }
+  .comment:last-child { margin-bottom: 0; }
+  .empty-note {
+    font-size: 13px;
+    color: #8a8371;
+    font-style: italic;
+  }
+
+  .loading, .error-msg {
+    text-align: center;
+    color: var(--cream);
+    padding: 40px 20px;
+  }
+  .error-msg { display: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Ortopedia y Traumatología UC</div>
+    <h1>Resumen de Respuestas</h1>
+    <p>Taller Cadavérico: Equipo de Mano</p>
+  </header>
+
+  <div id="pinScreen">
+    <div class="card">
+      <h2>Acceso del equipo</h2>
+      <p class="sub">Ingresa el PIN para ver los resultados</p>
+      <input type="password" id="pinInput" inputmode="numeric" maxlength="4" placeholder="••••">
+      <button id="pinBtn">Ver resumen</button>
+      <p id="pinError">PIN incorrecto, intenta de nuevo.</p>
+    </div>
+  </div>
+
+  <div class="loading" id="loadingMsg" style="display:none;">Cargando respuestas...</div>
+  <div class="error-msg" id="errorMsg">No se pudieron cargar los datos. Verifica la conexión e intenta de nuevo.</div>
+
+  <div id="dashboard">
+
+    <div class="card">
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="num" id="totalCount">–</div>
+          <div class="label">Respuestas</div>
+        </div>
+        <div class="stat-box">
+          <div class="num" id="meanExpBig">–</div>
+          <div class="label">Exp. Aprendizaje</div>
+        </div>
+        <div class="stat-box">
+          <div class="num" id="meanDocBig">–</div>
+          <div class="label">Calidad Docente</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Promedios (escala 1–7)</h2>
+      <p class="sub">Sobre el total de respuestas</p>
+      <div class="mean-bar-wrap">
+        <div class="mean-bar-label"><span>Experiencia de aprendizaje</span><span class="val" id="meanExpLabel">–</span></div>
+        <div class="mean-bar-track"><div class="mean-bar-fill" id="meanExpBar" style="width:0%"></div></div>
+      </div>
+      <div class="mean-bar-wrap">
+        <div class="mean-bar-label"><span>Calidad docente</span><span class="val" id="meanDocLabel">–</span></div>
+        <div class="mean-bar-track"><div class="mean-bar-fill" id="meanDocBar" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Duración del taller</h2>
+      <div id="duracionDist"></div>
+    </div>
+
+    <div class="card">
+      <h2>Contenidos cubiertos</h2>
+      <div id="contenidosDist"></div>
+      <div id="contenidosComments" style="margin-top:12px;"></div>
+    </div>
+
+    <div class="card">
+      <h2>Qué funcionó bien</h2>
+      <div id="funcionoComments"></div>
+    </div>
+
+    <div class="card">
+      <h2>Qué se puede mejorar</h2>
+      <div id="mejorarComments"></div>
+    </div>
+
+    <div class="card">
+      <h2>Ideas para el futuro</h2>
+      <div id="futuroComments"></div>
+    </div>
+
+    <button class="refresh-btn" id="refreshBtn">Actualizar</button>
+  </div>
+
+</div>
+
+<script>
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw8GAVo9KoAHkg74m5RH91ES65xW1ZVSSdDnUzxb9hWRIAC7riRt7St29IxrvhGoBcx/exec";
+  const PIN = "1234";
+
+  const pinScreen = document.getElementById('pinScreen');
+  const pinInput = document.getElementById('pinInput');
+  const pinBtn = document.getElementById('pinBtn');
+  const pinError = document.getElementById('pinError');
+  const dashboard = document.getElementById('dashboard');
+  const loadingMsg = document.getElementById('loadingMsg');
+  const errorMsg = document.getElementById('errorMsg');
+
+  function checkPin() {
+    if (pinInput.value === PIN) {
+      pinScreen.style.display = 'none';
+      loadData();
+    } else {
+      pinError.style.display = 'block';
+    }
+  }
+  pinBtn.addEventListener('click', checkPin);
+  pinInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') checkPin(); });
+
+  function mean(arr) {
+    const nums = arr.map(Number).filter(function(n) { return !isNaN(n); });
+    if (!nums.length) return null;
+    return nums.reduce(function(a, b) { return a + b; }, 0) / nums.length;
+  }
+
+  function renderDist(containerId, values, order) {
+    const container = document.getElementById(containerId);
+    const counts = {};
+    order.forEach(function(k) { counts[k] = 0; });
+    values.forEach(function(v) {
+      if (v in counts) counts[v]++;
+    });
+    container.innerHTML = order.map(function(k) {
+      return '<div class="dist-row"><span>' + k + '</span><span class="dist-count">' + counts[k] + '</span></div>';
+    }).join('');
+  }
+
+  function renderComments(containerId, comments) {
+    const container = document.getElementById(containerId);
+    const clean = comments.filter(function(c) { return c && String(c).trim().length > 0; });
+    if (!clean.length) {
+      container.innerHTML = '<p class="empty-note">Sin comentarios en esta sección todavía.</p>';
+      return;
+    }
+    container.innerHTML = clean.map(function(c) {
+      return '<div class="comment">"' + String(c).replace(/</g, '&lt;') + '"</div>';
+    }).join('');
+  }
+
+  function loadData() {
+    loadingMsg.style.display = 'block';
+    dashboard.style.display = 'none';
+    errorMsg.style.display = 'none';
+
+    fetch(SCRIPT_URL)
+      .then(function(res) { return res.json(); })
+      .then(function(rows) {
+        loadingMsg.style.display = 'none';
+        dashboard.style.display = 'block';
+
+        document.getElementById('totalCount').textContent = rows.length;
+
+        const expMean = mean(rows.map(function(r) { return r.experiencia; }));
+        const docMean = mean(rows.map(function(r) { return r.docencia; }));
+
+        document.getElementById('meanExpBig').textContent = expMean !== null ? expMean.toFixed(1) : '–';
+        document.getElementById('meanDocBig').textContent = docMean !== null ? docMean.toFixed(1) : '–';
+        document.getElementById('meanExpLabel').textContent = expMean !== null ? expMean.toFixed(1) + ' / 7' : '–';
+        document.getElementById('meanDocLabel').textContent = docMean !== null ? docMean.toFixed(1) + ' / 7' : '–';
+        document.getElementById('meanExpBar').style.width = (expMean !== null ? (expMean / 7 * 100) : 0) + '%';
+        document.getElementById('meanDocBar').style.width = (docMean !== null ? (docMean / 7 * 100) : 0) + '%';
+
+        renderDist('duracionDist', rows.map(function(r) { return r.duracion; }), ['Muy corta', 'Adecuada', 'Muy larga']);
+        renderDist('contenidosDist', rows.map(function(r) { return r.contenidos; }), ['Sí', 'Parcialmente', 'No']);
+
+        renderComments('contenidosComments', rows.map(function(r) { return r.contenidosDetalle; }));
+        renderComments('funcionoComments', rows.map(function(r) { return r.funciono; }));
+        renderComments('mejorarComments', rows.map(function(r) { return r.mejorar; }));
+        renderComments('futuroComments', rows.map(function(r) { return r.futuro; }));
+      })
+      .catch(function() {
+        loadingMsg.style.display = 'none';
+        errorMsg.style.display = 'block';
+      });
+  }
+
+  document.getElementById('refreshBtn').addEventListener('click', loadData);
+</script>
+
+</body>
+</html>
