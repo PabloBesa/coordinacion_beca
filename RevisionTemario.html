@@ -6,21 +6,20 @@
 <title>Revisión del Temario — Traumatología UC</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
 <style>
-  :root{--navy:#1a2744;--navy-mid:#243560;--gold:#c8973a;--gold-light:#e8c47a;--gold-pale:#f5e9cc;
-    --cream:#faf8f3;--warm-gray:#f0ece3;--text:#2c2c2c;--text-muted:#5a5a5a;--border:#d4c9b0;
+  :root{--navy:#30579b;--navy-mid:#264a86;--tmt:#30579b;--tmt-light:#7f9fd0;--tmt-pale:#e8eef7;
+    --gold:#c8973a;--gold-light:#e8c47a;--gold-pale:#f5e9cc;
+    --cream:#f6f8fb;--warm-gray:#eef1f6;--text:#22303f;--text-muted:#5d6b7a;--border:#cfd8e6;
     --green:#2a6041;--green-light:#e8f2ec;--red:#8b2e2e;--red-light:#f5eaea;--purple:#4a3b6b;--purple-light:#ece8f5;}
   *{margin:0;padding:0;box-sizing:border-box;}
   body{font-family:'Source Serif 4',Georgia,serif;background:var(--cream);color:var(--text);font-size:15px;line-height:1.7;}
   .page{max-width:480px;margin:0 auto;background:#fff;min-height:100vh;}
 
-  .header{background:var(--navy);padding:26px 22px 20px;position:relative;overflow:hidden;}
-  .header::after{content:'';position:absolute;bottom:0;right:0;width:150px;height:100%;
-    background:linear-gradient(135deg,transparent 50%,rgba(200,151,58,.12) 100%);}
-  .header-tag{font-size:9px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
-  .header h1{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:#fff;line-height:1.2;}
-  .header h1 span{color:var(--gold-light);}
-  .header-sub{font-size:11.5px;color:rgba(255,255,255,.6);font-style:italic;margin-top:3px;}
-  .gold-rule{width:44px;height:3px;background:var(--gold);margin-top:12px;}
+  .header{background:#fff;padding:20px 20px 16px;border-bottom:2px solid var(--tmt);display:flex;align-items:center;gap:14px;}
+  .header .logo{width:54px;height:auto;flex-shrink:0;}
+  .header-tag{font-size:9px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--tmt-light);margin-bottom:3px;}
+  .header h1{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--tmt);line-height:1.15;}
+  .header-sub{font-size:11px;color:var(--text-muted);font-style:italic;margin-top:2px;}
+  .gold-rule{width:44px;height:3px;background:var(--tmt);margin-top:12px;}
 
   .content{padding:22px 20px 60px;}
   .screen{display:none;} .screen.active{display:block;}
@@ -29,27 +28,27 @@
   .who{display:flex;flex-direction:column;gap:8px;}
   .who button{background:var(--cream);border:1px solid var(--border);border-radius:9px;padding:12px 14px;
     font-family:'Source Serif 4',serif;font-size:14px;color:var(--navy);cursor:pointer;text-align:left;transition:all .16s;}
-  .who button:hover{border-color:var(--gold);background:var(--warm-gray);}
+  .who button:hover{border-color:var(--tmt);background:var(--warm-gray);}
   .who button b{font-family:'Playfair Display',serif;font-weight:600;}
   .who button span{display:block;font-size:11px;color:var(--text-muted);font-style:italic;margin-top:1px;}
 
-  .backlink{font-size:11.5px;color:var(--gold);font-weight:600;cursor:pointer;display:inline-block;margin-bottom:14px;}
+  .backlink{font-size:11.5px;color:var(--tmt);font-weight:600;cursor:pointer;display:inline-block;margin-bottom:14px;}
   .backlink:hover{text-decoration:underline;}
 
   .section-header{display:flex;align-items:center;gap:11px;margin-bottom:16px;padding-bottom:8px;border-bottom:1.5px solid var(--border);}
-  .section-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--gold);opacity:.75;}
+  .section-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--tmt);opacity:.75;}
   .section-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--navy);}
   .section-title em{display:block;font-family:'Source Serif 4',serif;font-size:10.5px;font-weight:400;font-style:italic;color:var(--text-muted);margin-top:1px;}
 
   /* rings */
   .ringcard{display:flex;align-items:center;gap:14px;background:var(--cream);border:1px solid var(--border);
     border-radius:9px;padding:13px 15px;margin-bottom:10px;cursor:pointer;transition:all .16s;}
-  .ringcard:hover{border-color:var(--gold);}
+  .ringcard:hover{border-color:var(--tmt);}
   .ringcard.done{background:var(--green-light);border-color:#bcd9c8;}
   .ring{position:relative;flex-shrink:0;width:52px;height:52px;}
   .ring svg{transform:rotate(-90deg);}
   .ring .bg{fill:none;stroke:var(--warm-gray);stroke-width:5;}
-  .ring .fg{fill:none;stroke:var(--gold);stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset .5s;}
+  .ring .fg{fill:none;stroke:var(--tmt);stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset .5s;}
   .ringcard.done .ring .fg{stroke:var(--green);}
   .ring .pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
     font-family:'Playfair Display',serif;font-size:12.5px;font-weight:700;color:var(--navy);}
@@ -60,17 +59,17 @@
 
   .total{background:var(--navy);border-radius:10px;padding:16px;margin-bottom:18px;display:flex;align-items:center;gap:15px;}
   .total .ring .bg{stroke:rgba(255,255,255,.15);}
-  .total .ring .fg{stroke:var(--gold-light);}
+  .total .ring .fg{stroke:rgba(255,255,255,.92);}
   .total .ring .pct{color:#fff;}
   .total .tt{font-family:'Playfair Display',serif;font-size:15px;color:#fff;}
   .total .ts{font-size:11px;color:rgba(255,255,255,.65);font-style:italic;margin-top:2px;}
 
   /* topic list */
-  .blockhead{font-size:9.5px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold);
+  .blockhead{font-size:9.5px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--tmt);
     margin:18px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--border);}
   .subhead{font-family:'Playfair Display',serif;font-size:12px;font-weight:600;color:var(--text-muted);margin:12px 0 6px;}
   .tcard{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:12px 13px;margin-bottom:9px;}
-  .tcard.marked{background:#fff;border-color:var(--gold);}
+  .tcard.marked{background:#fff;border-color:var(--tmt);}
   .tcard.conflict{background:var(--red-light);border-color:#e0bcbc;}
   .ttext{font-size:12.5px;line-height:1.55;color:var(--text);}
   .tmeta{font-size:10px;color:var(--text-muted);font-style:italic;margin-top:5px;}
@@ -78,18 +77,25 @@
   .levels{display:flex;gap:5px;margin-top:9px;flex-wrap:wrap;}
   .lv{border:1px solid var(--border);background:#fff;border-radius:20px;padding:4px 11px;
     font-family:'Playfair Display',serif;font-size:11.5px;font-weight:700;color:var(--navy);cursor:pointer;transition:all .15s;}
-  .lv:hover{border-color:var(--gold);}
+  .lv:hover{border-color:var(--tmt);}
   .lv.on.r1{background:var(--green-light);border-color:var(--green);color:var(--green);}
   .lv.on.r2{background:var(--gold-pale);border-color:var(--gold);color:#8a6420;}
-  .lv.on.r3{background:var(--navy);border-color:var(--navy);color:var(--gold-light);}
+  .lv.on.r3{background:var(--navy);border-color:var(--navy);color:#fff;}
   .lv.on.rf{background:var(--purple);border-color:var(--purple);color:#fff;}
   .lv.flag{font-family:'Source Serif 4',serif;font-size:11px;font-weight:600;margin-left:auto;}
   .lv.flag.on{background:var(--red);border-color:var(--red);color:#fff;}
   .cmt{width:100%;margin-top:8px;border:1px solid var(--border);border-radius:6px;padding:7px 9px;
     font-family:'Source Serif 4',serif;font-size:12px;background:#fff;color:var(--text);resize:vertical;min-height:34px;}
-  .cmt:focus{outline:none;border-color:var(--gold);}
+  .cmt:focus{outline:none;border-color:var(--tmt);}
   .saved{font-size:10px;color:var(--green);font-weight:600;margin-top:5px;display:none;}
   .tcard.ok .saved{display:block;}
+  .domtoggle{font-size:10.5px;color:var(--tmt);font-weight:600;cursor:pointer;display:inline-block;margin-top:9px;}
+  .domtoggle:hover{text-decoration:underline;}
+  .domgrid{display:none;margin-top:9px;padding:10px 11px;background:var(--tmt-pale);border-radius:7px;}
+  .tcard.show-dom .domgrid{display:block;}
+  .domrow{display:flex;align-items:center;gap:6px;padding:5px 0;flex-wrap:wrap;}
+  .domrow+.domrow{border-top:1px dotted var(--border);}
+  .domrow .dlabel{font-size:9.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-muted);flex:1 1 100%;margin-bottom:2px;}
 
   .btn{width:100%;background:var(--navy);color:#fff;border:none;border-radius:9px;padding:13px;
     font-family:'Playfair Display',serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:14px;}
@@ -111,10 +117,12 @@
 <body>
 <div class="page">
   <div class="header">
-    <div class="header-tag">Revisión del Temario</div>
-    <h1>Posgrado <span>Traumatología UC</span></h1>
-    <div class="header-sub">Validación de niveles por año de residencia</div>
-    <div class="gold-rule"></div>
+    <img class="logo" src="logo_tmt_mark.png" alt="Traumatología y Ortopedia UC">
+    <div>
+      <div class="header-tag">Revisión del Temario</div>
+      <h1>Traumatología y Ortopedia</h1>
+      <div class="header-sub">Validación de niveles por año de residencia</div>
+    </div>
   </div>
 
   <div class="content">
@@ -162,6 +170,23 @@ const MODULOS = {
 
 // nivel oficial del temario -> año sugerido
 const NIVEL2R = {'1.1':'R1','1.2':'R1','2.1':'R2','2.2':'R3','3':'R3'};
+
+// ejes (3) y pre-llenado según el nivel del temario
+const EJES = [
+  {k:'eje_diagnostico', label:'Diagnóstico-clínico'},
+  {k:'eje_decision',    label:'Decisión terapéutica'},
+  {k:'eje_experto',     label:'Quirúrgico-experto'}
+];
+const YEARS = ['','R1','R2','R3','F'];   // índice 1..4
+const NIVEL2FOCO = {'1.1':1,'1.2':1,'2.1':2,'2.2':3,'3':3};
+function prefillEjes(nivel){
+  const f = NIVEL2FOCO[nivel] || 2;
+  return {
+    eje_diagnostico: YEARS[Math.max(1, f-1)],
+    eje_decision:    YEARS[f],
+    eje_experto:     YEARS[Math.min(4, f+1)]
+  };
+}
 
 let DATA = {};              // temario.json
 let STATE = {revisor:null, modulo:null, sub:null, marcas:{}, delegado:false};
@@ -250,7 +275,7 @@ function progreso(mod, sub){
     ss.temas.forEach(t=>{
       tot++;
       const k = mod+'::'+t.id, mk = STATE.marcas[k];
-      if(mk && (mk.nivel_propuesto || mk.conflictivo)) rev++;
+      if(mk && (mk.nivel_propuesto || mk.conflictivo || mk.eje_diagnostico)) rev++;
       if(mk && mk.conflictivo) conf++;
     });
   });
@@ -336,7 +361,14 @@ function renderTopics(){
     const k = mod+'::'+t.id, mk = STATE.marcas[k] || {};
     const sel = mk.nivel_propuesto || '';
     const conf = mk.conflictivo ? ' on' : '';
-    const cls = mk.conflictivo ? 'conflict' : (sel ? 'marked' : '');
+    const hasDom = !!(mk.eje_diagnostico || mk.eje_decision || mk.eje_experto);
+    const cls = (mk.conflictivo ? 'conflict' : (sel||hasDom ? 'marked' : '')) + (hasDom ? ' show-dom' : '');
+    const pf = prefillEjes(t.n);
+    const domRows = EJES.map(ej=>{
+      const cur = mk[ej.k] || pf[ej.k];
+      return `<div class="domrow"><span class="dlabel">${ej.label}</span>
+        ${['R1','R2','R3','F'].map(l=>`<button class="lv dchip ${l==='F'?'rf':l.toLowerCase()}${cur===l?' on':''}" data-eje="${ej.k}" data-lv="${l}">${l==='F'?'Fellow':l}</button>`).join('')}</div>`;
+    }).join('');
     html += `<div class="tcard ${cls}" data-id="${t.id}">
       <div class="ttext">${esc(t.t)}</div>
       <div class="tmeta">Temario: nivel ${esc(t.n)} · sugerido <b>${NIVEL2R[t.n]||'—'}</b></div>
@@ -344,6 +376,8 @@ function renderTopics(){
         ${['R1','R2','R3','F'].map(l=>`<button class="lv ${l==='F'?'rf':l.toLowerCase()}${sel===l?' on':''}" data-lv="${l}">${l==='F'?'Fellow':l}</button>`).join('')}
         <button class="lv flag${conf}" data-flag="1">Conflictivo</button>
       </div>
+      <span class="domtoggle" data-domtoggle="1">${hasDom?'– Cerrar dominios':'⊕ Abrir por dominios'}</span>
+      <div class="domgrid">${domRows}</div>
       <textarea class="cmt" placeholder="Comentario (opcional)">${esc(mk.comentario||'')}</textarea>
       <div class="saved">Guardado ✓</div>
     </div>`;
@@ -360,17 +394,46 @@ function renderTopics(){
 
   $('#topicsBody').onclick = e=>{
     const card = e.target.closest('.tcard'); if(!card) return;
-    const btn = e.target.closest('.lv'); if(!btn) return;
     const t = ss.temas.find(x=>x.id===card.dataset.id);
     const k = mod+'::'+t.id;
     const mk = STATE.marcas[k] = STATE.marcas[k] || {};
+
+    // abrir / cerrar dominios
+    const dt = e.target.closest('[data-domtoggle]');
+    if(dt){
+      const opening = !card.classList.contains('show-dom');
+      card.classList.toggle('show-dom', opening);
+      if(opening && !mk.eje_diagnostico){
+        const pf = prefillEjes(t.n);
+        mk.eje_diagnostico=pf.eje_diagnostico; mk.eje_decision=pf.eje_decision; mk.eje_experto=pf.eje_experto;
+        card.querySelectorAll('.dchip').forEach(b=>b.classList.toggle('on', mk[b.dataset.eje]===b.dataset.lv));
+        card.classList.add('marked','ok'); guardar(t, mk);
+      }
+      dt.textContent = opening ? '– Cerrar dominios' : '⊕ Abrir por dominios';
+      return;
+    }
+
+    const btn = e.target.closest('.lv'); if(!btn) return;
+
+    // chip de eje (dominio)
+    if(btn.dataset.eje){
+      mk[btn.dataset.eje] = btn.dataset.lv;
+      card.querySelectorAll('.dchip').forEach(b=>{
+        if(b.dataset.eje===btn.dataset.eje) b.classList.toggle('on', b.dataset.lv===mk[btn.dataset.eje]);
+      });
+      card.classList.add('marked','ok'); guardar(t, mk); return;
+    }
+
+    // conflictivo
     if(btn.dataset.flag){ mk.conflictivo = !mk.conflictivo; btn.classList.toggle('on'); }
+    // nivel principal
     else {
       const lv = btn.dataset.lv;
       mk.nivel_propuesto = (mk.nivel_propuesto===lv) ? '' : lv;
-      card.querySelectorAll('.lv[data-lv]').forEach(b=>b.classList.toggle('on', b.dataset.lv===mk.nivel_propuesto));
+      card.querySelectorAll('.levels .lv[data-lv]').forEach(b=>b.classList.toggle('on', b.dataset.lv===mk.nivel_propuesto));
     }
-    card.className = 'tcard ok ' + (mk.conflictivo?'conflict':(mk.nivel_propuesto?'marked':''));
+    const hasDom = !!(mk.eje_diagnostico);
+    card.className = 'tcard ok ' + (mk.conflictivo?'conflict':((mk.nivel_propuesto||hasDom)?'marked':'')) + (card.classList.contains('show-dom')?' show-dom':'');
     guardar(t, mk);
   };
 
@@ -391,6 +454,7 @@ function renderTopics(){
 function guardar(t, mk){
   post({revisor:STATE.revisor, modulo:STATE.modulo, tema_id:t.id, tema:t.t,
         nivel_actual:t.n, nivel_propuesto:mk.nivel_propuesto||'',
+        eje_diagnostico:mk.eje_diagnostico||'', eje_decision:mk.eje_decision||'', eje_experto:mk.eje_experto||'',
         conflictivo:!!mk.conflictivo, comentario:mk.comentario||'', accion:'revision'})
     .catch(()=>toast('No se pudo guardar — revisa tu conexión', 3000));
 }
