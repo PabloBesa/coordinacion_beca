@@ -84,6 +84,8 @@
   .lv.on.rf{background:var(--purple);border-color:var(--purple);color:#fff;}
   .lv.flag{font-family:'Source Serif 4',serif;font-size:11px;font-weight:600;margin-left:auto;}
   .lv.flag.on{background:var(--red);border-color:var(--red);color:#fff;}
+  .tcard.show-dom .levels .lv[data-lv]{opacity:.4;}
+  .tcard.show-dom .levels .lv[data-lv]:hover{opacity:1;}
   .cmt{width:100%;margin-top:8px;border:1px solid var(--border);border-radius:6px;padding:7px 9px;
     font-family:'Source Serif 4',serif;font-size:12px;background:#fff;color:var(--text);resize:vertical;min-height:34px;}
   .cmt:focus{outline:none;border-color:var(--tmt);}
@@ -179,8 +181,8 @@ const EJES = [
 ];
 const YEARS = ['','R1','R2','R3','F'];   // índice 1..4
 const NIVEL2FOCO = {'1.1':1,'1.2':1,'2.1':2,'2.2':3,'3':3};
-function prefillEjes(nivel){
-  const f = NIVEL2FOCO[nivel] || 2;
+function prefillEjes(nivel, propuesto){
+  const f = propuesto ? YEARS.indexOf(propuesto) : (NIVEL2FOCO[nivel] || 2);
   return {
     eje_diagnostico: YEARS[Math.max(1, f-1)],
     eje_decision:    YEARS[f],
@@ -363,7 +365,7 @@ function renderTopics(){
     const conf = mk.conflictivo ? ' on' : '';
     const hasDom = !!(mk.eje_diagnostico || mk.eje_decision || mk.eje_experto);
     const cls = (mk.conflictivo ? 'conflict' : (sel||hasDom ? 'marked' : '')) + (hasDom ? ' show-dom' : '');
-    const pf = prefillEjes(t.n);
+    const pf = prefillEjes(t.n, sel);
     const domRows = EJES.map(ej=>{
       const cur = mk[ej.k] || pf[ej.k];
       return `<div class="domrow"><span class="dlabel">${ej.label}</span>
@@ -404,7 +406,7 @@ function renderTopics(){
       const opening = !card.classList.contains('show-dom');
       card.classList.toggle('show-dom', opening);
       if(opening && !mk.eje_diagnostico){
-        const pf = prefillEjes(t.n);
+        const pf = prefillEjes(t.n, mk.nivel_propuesto);
         mk.eje_diagnostico=pf.eje_diagnostico; mk.eje_decision=pf.eje_decision; mk.eje_experto=pf.eje_experto;
         card.querySelectorAll('.dchip').forEach(b=>b.classList.toggle('on', mk[b.dataset.eje]===b.dataset.lv));
         card.classList.add('marked','ok'); guardar(t, mk);
