@@ -182,7 +182,10 @@ const EJES = [
 const YEARS = ['','R1','R2','R3','F'];   // índice 1..4
 const NIVEL2FOCO = {'1.1':1,'1.2':1,'2.1':2,'2.2':3,'3':3};
 function prefillEjes(nivel, propuesto){
-  const f = propuesto ? YEARS.indexOf(propuesto) : (NIVEL2FOCO[nivel] || 2);
+  if(propuesto){
+    return { eje_diagnostico: propuesto, eje_decision: propuesto, eje_experto: propuesto };
+  }
+  const f = NIVEL2FOCO[nivel] || 2;
   return {
     eje_diagnostico: YEARS[Math.max(1, f-1)],
     eje_decision:    YEARS[f],
