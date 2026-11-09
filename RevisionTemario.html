@@ -93,6 +93,7 @@
   .tcard.ok .saved{display:block;}
   .domtoggle{font-size:10.5px;color:var(--tmt);font-weight:600;cursor:pointer;display:inline-block;margin-top:9px;}
   .domtoggle:hover{text-decoration:underline;}
+  .gtag{font-size:10px;color:var(--text-muted);font-style:italic;display:inline-block;margin-top:8px;}
   .domgrid{display:none;margin-top:9px;padding:10px 11px;background:var(--tmt-pale);border-radius:7px;}
   .tcard.show-dom .domgrid{display:block;}
   .domrow{display:flex;align-items:center;gap:6px;padding:5px 0;flex-wrap:wrap;}
@@ -331,7 +332,7 @@ function renderHome(){
     <div><div class="tt">${P.rev} de ${P.tot} temas</div>
     <div class="ts">${P.conf?P.conf+' marcados conflictivos':'sin conflictos marcados'}</div></div></div>`;
 
-  html += `<div class="note">Para cada tema confirma el año que corresponde (o corrígelo), y marca <b>conflictivo</b> si no estás de acuerdo o prefieres discutirlo en grupo. Se guarda solo, tema por tema.</div>`;
+  html += `<div class="note">Para cada tema confirma el año que corresponde (o corrígelo), y marca <b>conflictivo</b> si no estás de acuerdo o prefieres discutirlo en grupo. Los temas generales (anatomía, biomecánica, evaluación clínica, exámenes) llevan un solo año; las patologías y cirugías se pueden abrir por dominios. Se guarda solo, tema por tema.</div>`;
 
   D.subsecciones.forEach(ss=>{
     const p = progreso(mod, ss.nombre), pc = p.tot?Math.round(p.rev/p.tot*100):0;
@@ -366,7 +367,8 @@ function renderTopics(){
     const k = mod+'::'+t.id, mk = STATE.marcas[k] || {};
     const sel = mk.nivel_propuesto || '';
     const conf = mk.conflictivo ? ' on' : '';
-    const hasDom = !!(mk.eje_diagnostico || mk.eje_decision || mk.eje_experto);
+    // temas generales (t.g, marcado en temario.json): un solo año, sin dominios
+    const hasDom = !t.g && !!(mk.eje_diagnostico || mk.eje_decision || mk.eje_experto);
     const cls = (mk.conflictivo ? 'conflict' : (sel||hasDom ? 'marked' : '')) + (hasDom ? ' show-dom' : '');
     const pf = prefillEjes(t.n, sel);
     const domRows = EJES.map(ej=>{
@@ -381,8 +383,9 @@ function renderTopics(){
         ${['R1','R2','R3','F'].map(l=>`<button class="lv ${l==='F'?'rf':l.toLowerCase()}${sel===l?' on':''}" data-lv="${l}">${l==='F'?'Fellow':l}</button>`).join('')}
         <button class="lv flag${conf}" data-flag="1">Conflictivo</button>
       </div>
-      <span class="domtoggle" data-domtoggle="1">${hasDom?'– Cerrar dominios':'⊕ Abrir por dominios'}</span>
-      <div class="domgrid">${domRows}</div>
+      ${t.g ? `<span class="gtag">Tema general · un solo año</span>`
+            : `<span class="domtoggle" data-domtoggle="1">${hasDom?'– Cerrar dominios':'⊕ Abrir por dominios'}</span>
+      <div class="domgrid">${domRows}</div>`}
       <textarea class="cmt" placeholder="Comentario (opcional)">${esc(mk.comentario||'')}</textarea>
       <div class="saved">Guardado ✓</div>
     </div>`;

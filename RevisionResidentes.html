@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temario para Residentes — Traumatología UC</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#30579b;--navy-mid:#264a86;--tmt:#30579b;--tmt-light:#7f9fd0;--tmt-pale:#e8eef7;
+    --gold:#c8973a;--gold-pale:#f5e9cc;
+    --cream:#f6f8fb;--warm-gray:#eef1f6;--text:#22303f;--text-muted:#5d6b7a;--border:#cfd8e6;
+    --green:#2a6041;--green-light:#e8f2ec;--red:#8b2e2e;--red-light:#f5eaea;--purple:#4a3b6b;--purple-light:#ece8f5;
+    --r3:#1a2744;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Source Serif 4',Georgia,serif;background:var(--cream);color:var(--text);font-size:15px;line-height:1.7;}
+  .page{max-width:480px;margin:0 auto;background:#fff;min-height:100vh;}
+
+  .header{background:#fff;padding:20px 20px 16px;border-bottom:2px solid var(--tmt);display:flex;align-items:center;gap:14px;}
+  .header .logo{width:54px;height:auto;flex-shrink:0;}
+  .header-tag{font-size:9px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--tmt-light);margin-bottom:3px;}
+  .header h1{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--tmt);line-height:1.15;}
+  .header-sub{font-size:11px;color:var(--text-muted);font-style:italic;margin-top:2px;}
+
+  .content{padding:22px 16px 60px;}
+  .screen{display:none;} .screen.active{display:block;}
+  .note{font-size:11.5px;font-style:italic;color:var(--text-muted);background:var(--warm-gray);
+    border-radius:7px;padding:11px 13px;margin-bottom:16px;line-height:1.6;}
+  .note b{font-style:normal;color:var(--navy);}
+  .backlink{font-size:11.5px;color:var(--tmt);font-weight:600;cursor:pointer;display:inline-block;margin-bottom:14px;}
+  .backlink:hover{text-decoration:underline;}
+
+  .modcard{display:flex;align-items:center;gap:13px;background:var(--cream);border:1px solid var(--border);
+    border-radius:9px;padding:13px 15px;margin-bottom:10px;cursor:pointer;transition:border-color .16s;}
+  .modcard:hover{border-color:var(--tmt);}
+  .modcard .num{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--tmt);opacity:.75;width:28px;}
+  .modcard .mt{font-family:'Playfair Display',serif;font-size:14.5px;font-weight:600;color:var(--navy);}
+  .modcard .ms{font-size:11px;color:var(--text-muted);font-style:italic;}
+  .modcard .mflag{font-size:10.5px;color:var(--red);margin-top:2px;}
+  .modcard.off{cursor:default;opacity:.5;background:#fff;border-style:dashed;}
+  .modcard.off:hover{border-color:var(--border);}
+  .soon{font-size:9.5px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-muted);margin:20px 0 8px;}
+
+  .section-header{display:flex;align-items:center;gap:11px;margin-bottom:12px;padding-bottom:8px;border-bottom:1.5px solid var(--border);}
+  .section-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--tmt);opacity:.75;}
+  .section-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--navy);}
+  .section-title em{display:block;font-family:'Source Serif 4',serif;font-size:10.5px;font-weight:400;font-style:italic;color:var(--text-muted);}
+
+  .filter{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px;position:sticky;top:0;background:#fff;padding:8px 0;z-index:5;}
+  .filter .lbl{font-size:10px;color:var(--text-muted);font-style:italic;width:100%;}
+
+  .subhead{font-family:'Playfair Display',serif;font-size:14px;font-weight:600;color:var(--navy);
+    margin:22px 0 4px;padding:8px 0 6px;border-bottom:1.5px solid var(--tmt);}
+  .blockhead{font-size:9.5px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--tmt);
+    margin:14px 0 8px;}
+
+  .tcard{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:11px 13px;margin-bottom:8px;}
+  .tcard.flagged{background:var(--red-light);border-color:#e0bcbc;}
+  .trow{display:flex;gap:10px;align-items:flex-start;}
+  .ttext{flex:1;font-size:12.5px;line-height:1.55;}
+  .tmeta{font-size:10px;color:var(--text-muted);font-style:italic;margin-top:4px;}
+  .disc{display:inline-block;font-size:9.5px;font-weight:600;color:var(--red);background:#fff;border:1px solid #e0bcbc;
+    border-radius:10px;padding:0 7px;margin-top:5px;font-style:normal;}
+
+  .yr{flex-shrink:0;border-radius:20px;padding:2px 10px;font-family:'Playfair Display',serif;font-size:11.5px;font-weight:700;
+    border:1px solid var(--border);background:#fff;color:var(--navy);}
+  .yr.r1{background:var(--green-light);border-color:var(--green);color:var(--green);}
+  .yr.r2{background:var(--gold-pale);border-color:var(--gold);color:#8a6420;}
+  .yr.r3{background:var(--r3);border-color:var(--r3);color:#fff;}
+  .yr.rf{background:var(--purple);border-color:var(--purple);color:#fff;}
+
+  .doms{margin-top:8px;padding:7px 10px;background:var(--tmt-pale);border-radius:7px;}
+  .dom{display:flex;align-items:center;justify-content:space-between;padding:3px 0;font-size:11px;color:var(--text-muted);}
+  .dom+.dom{border-top:1px dotted var(--border);}
+  .dom .yr{font-size:10.5px;padding:0 9px;}
+
+  .flagbtn{font-size:10.5px;color:var(--red);font-weight:600;cursor:pointer;display:inline-block;margin-top:8px;}
+  .flagbtn:hover{text-decoration:underline;}
+  .flagbox{display:none;margin-top:8px;padding:10px 11px;background:#fff;border:1px solid #e0bcbc;border-radius:7px;}
+  .tcard.open .flagbox{display:block;}
+  .flagbox .q{font-size:11px;color:var(--text);margin-bottom:6px;}
+  .chips{display:flex;gap:5px;flex-wrap:wrap;}
+  .chip{border:1px solid var(--border);background:#fff;border-radius:20px;padding:3px 11px;
+    font-family:'Playfair Display',serif;font-size:11.5px;font-weight:700;color:var(--navy);cursor:pointer;}
+  .chip:hover{border-color:var(--tmt);}
+  .chip.on.r1{background:var(--green-light);border-color:var(--green);color:var(--green);}
+  .chip.on.r2{background:var(--gold-pale);border-color:var(--gold);color:#8a6420;}
+  .chip.on.r3{background:var(--r3);border-color:var(--r3);color:#fff;}
+  .chip.on.rf{background:var(--purple);border-color:var(--purple);color:#fff;}
+  .chip.on.all{background:var(--tmt);border-color:var(--tmt);color:#fff;}
+  .cmt{width:100%;margin-top:8px;border:1px solid var(--border);border-radius:6px;padding:7px 9px;
+    font-family:'Source Serif 4',serif;font-size:12px;color:var(--text);resize:vertical;min-height:50px;}
+  .cmt:focus{outline:none;border-color:var(--tmt);}
+  .row2{display:flex;justify-content:space-between;align-items:center;margin-top:7px;}
+  .unflag{font-size:10.5px;color:var(--text-muted);cursor:pointer;text-decoration:underline;}
+  .saved{font-size:10px;color:var(--green);font-weight:600;visibility:hidden;}
+  .tcard.ok .saved{visibility:visible;}
+
+  .empty{text-align:center;padding:24px;color:var(--text-muted);font-style:italic;font-size:12.5px;}
+  .loading{text-align:center;padding:36px 20px;color:var(--text-muted);font-style:italic;font-size:13px;}
+  .status{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;background:var(--navy);color:#fff;
+    font-size:12px;padding:9px 16px;border-radius:20px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:50;}
+  .status.show{opacity:1;}
+  .footer{text-align:center;font-size:10.5px;color:var(--text-muted);font-style:italic;padding:20px 20px 34px;}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <img class="logo" src="logo_tmt_mark.png" alt="Traumatología y Ortopedia UC">
+    <div>
+      <div class="header-tag">Temario · versión preliminar</div>
+      <h1>Traumatología y Ortopedia</h1>
+      <div class="header-sub">Qué se espera en cada año de residencia</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="screen active" id="s-home"><div id="homeBody"><div class="loading">Cargando temario…</div></div></div>
+    <div class="screen" id="s-mod">
+      <span class="backlink" id="back">‹ Volver a los módulos</span>
+      <div id="modBody"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Temario del Programa de Posgrado Traumatología UC · versión preliminar<br>
+    Coordinación docente
+  </div>
+</div>
+<div class="status" id="status"></div>
+
+<script>
+const API = 'https://script.google.com/macros/s/AKfycbxDYN-zZdynKVQF5qoOocCNuufTtlHOSOkj3GmKuIMapqHNAJh7mZJVGs_m1AYpeLeq/exec';
+
+// Módulos ya revisados por el staff (agrega aquí a medida que terminen)
+const LISTOS = ['adulto','hombro','columna','rodilla'];
+
+const MODULOS = {
+  adulto:{nombre:'Adulto general y trauma', num:'01'},
+  hombro:{nombre:'Hombro', num:'02'},
+  columna:{nombre:'Columna', num:'03'},
+  cadera:{nombre:'Cadera', num:'04'},
+  rodilla:{nombre:'Rodilla', num:'05'},
+  eess:{nombre:'Mano, muñeca, codo y brazo', num:'06'},
+  typ:{nombre:'Tobillo y pie', num:'07'},
+  tumores:{nombre:'Tumores', num:'08'},
+  infantil:{nombre:'Infantil', num:'09'}
+};
+
+const NIVEL2R = {'1.1':'R1','1.2':'R1','2.1':'R2','2.2':'R3','3':'R3'};
+const NIVEL2FOCO = {'1.1':1,'1.2':1,'2.1':2,'2.2':3,'3':3};
+const YEARS = ['','R1','R2','R3','F'];
+const EJES = [
+  {k:'eje_diagnostico', label:'Diagnóstico-clínico'},
+  {k:'eje_decision',    label:'Decisión terapéutica'},
+  {k:'eje_experto',     label:'Quirúrgico-experto'}
+];
+const YLABEL = {R1:'R1',R2:'R2',R3:'R3',F:'Fellow'};
+const YCLS = {R1:'r1',R2:'r2',R3:'r3',F:'rf'};
+
+let DATA = {}, STAFF = {}, MIAS = {}, MOD = null, FILTRO = '';
+const RESIDENTE = (new URLSearchParams(location.search).get('residente') || 'Jefe de residentes').trim();
+
+const $ = s => document.querySelector(s);
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function toast(msg, ms){ const el=$('#status'); el.textContent=msg; el.classList.add('show');
+  clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('show'), ms||2000); }
+function go(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $('#s-'+id).classList.add('active'); window.scrollTo({top:0}); }
+
+function jsonp(params){
+  return new Promise((resolve,reject)=>{
+    const cb = 'cb_'+Math.random().toString(36).slice(2);
+    const t = setTimeout(()=>{ cleanup(); reject(new Error('timeout')); }, 15000);
+    function cleanup(){ clearTimeout(t); delete window[cb]; if(sc.parentNode) sc.remove(); }
+    window[cb] = d => { cleanup(); resolve(d); };
+    const qs = Object.entries(params).map(([k,v])=>k+'='+encodeURIComponent(v)).join('&');
+    const sc = document.createElement('script');
+    sc.src = API+'?'+qs+(qs?'&':'')+'callback='+cb;
+    sc.onerror = ()=>{ cleanup(); reject(new Error('network')); };
+    document.body.appendChild(sc);
+  });
+}
+function post(payload){
+  return fetch(API, {method:'POST', mode:'no-cors',
+    headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload)});
+}
+
+/* Año final de un tema, según la revisión del staff */
+function final(mod, t){
+  const mk = STAFF[mod+'::'+t.id] || {};
+  const anio = mk.nivel_propuesto || (!t.g && mk.eje_decision) || NIVEL2R[t.n] || 'R2';
+  let ejes = null;
+  if(!t.g){
+    if(mk.eje_diagnostico){
+      ejes = {eje_diagnostico:mk.eje_diagnostico, eje_decision:mk.eje_decision, eje_experto:mk.eje_experto};
+    } else if(mk.nivel_propuesto){
+      ejes = {eje_diagnostico:mk.nivel_propuesto, eje_decision:mk.nivel_propuesto, eje_experto:mk.nivel_propuesto};
+    } else {
+      const f = NIVEL2FOCO[t.n] || 2;
+      ejes = {eje_diagnostico:YEARS[Math.max(1,f-1)], eje_decision:YEARS[f], eje_experto:YEARS[Math.min(4,f+1)]};
+    }
+  }
+  return {anio, ejes, discusion: !!mk.conflictivo};
+}
+// Año en que el tema "se toca" por primera vez (para el filtro)
+function entra(fx){ return fx.ejes ? [fx.ejes.eje_diagnostico, fx.ejes.eje_decision, fx.ejes.eje_experto] : [fx.anio]; }
+
+async function boot(){
+  try{ DATA = await (await fetch('temario.json')).json(); }
+  catch(e){ $('#homeBody').innerHTML = '<div class="loading">No pude cargar <b>temario.json</b>.</div>'; return; }
+  const [s, m] = await Promise.allSettled([jsonp({}), jsonp({tab:'residentes', residente:RESIDENTE})]);
+  STAFF = (s.status==='fulfilled' && s.value.marcas) || {};
+  MIAS  = (m.status==='fulfilled' && m.value.marcas) || {};
+  // backend sin soporte de residentes devuelve marcas del staff: descartarlas
+  MIAS  = Object.fromEntries(Object.entries(MIAS).filter(([,v])=>'residente' in v));
+  if(s.status!=='fulfilled') toast('Sin conexión con el servidor', 3000);
+  renderHome();
+  const pm = new URLSearchParams(location.search).get('modulo');
+  if(pm && LISTOS.includes(pm) && DATA[pm]){ MOD = pm; renderMod(); go('mod'); }
+}
+
+function renderHome(){
+  const nMias = k => Object.values(MIAS).filter(x=>x.modulo===k && x.marcado).length;
+  let html = `<div class="note">Esta es la <b>primera versión</b> del temario después de la revisión del staff: para cada tema, el año en que se espera que lo domines. Los temas de patología y cirugía se desglosan en tres ejes (diagnóstico, decisión terapéutica, quirúrgico).<br><br>
+    Te pedimos que lo recorras y marques <b>⚠ Algo no calza</b> en lo que te parezca mal ubicado, ambiguo o que falte. Se guarda solo.</div>`;
+  html += LISTOS.filter(k=>DATA[k]).map(k=>{
+    const M = MODULOS[k], tot = DATA[k].subsecciones.reduce((a,s)=>a+s.temas.length,0), n = nMias(k);
+    return `<div class="modcard" data-mod="${k}"><div class="num">${M.num}</div><div>
+      <div class="mt">${esc(M.nombre)}</div><div class="ms">${tot} temas</div>
+      ${n?`<div class="mflag">Marcaste ${n} tema${n>1?'s':''}</div>`:''}</div></div>`;
+  }).join('');
+  const pend = Object.keys(MODULOS).filter(k=>!LISTOS.includes(k));
+  if(pend.length){
+    html += `<div class="soon">En revisión por el staff · pronto</div>`;
+    html += pend.map(k=>`<div class="modcard off"><div class="num">${MODULOS[k].num}</div><div><div class="mt">${esc(MODULOS[k].nombre)}</div></div></div>`).join('');
+  }
+  $('#homeBody').innerHTML = html;
+  $('#homeBody').onclick = e=>{ const c=e.target.closest('.modcard[data-mod]'); if(!c) return; MOD=c.dataset.mod; FILTRO=''; renderMod(); go('mod'); };
+}
+
+function renderMod(){
+  const M = MODULOS[MOD], D = DATA[MOD];
+  let html = `<div class="section-header"><div class="section-num">${M.num}</div>
+    <div class="section-title">${esc(M.nombre)}<em>Revisa ${esc(RESIDENTE)}</em></div></div>`;
+  html += `<div class="filter"><span class="lbl">Ver lo que se espera en:</span>
+    ${[['','Todo'],['R1','R1'],['R2','R2'],['R3','R3'],['F','Fellow']].map(([v,l])=>
+      `<button class="chip ${v?YCLS[v]:'all'}${FILTRO===v?' on':''}" data-f="${v}">${l}</button>`).join('')}</div>`;
+
+  let shown = 0;
+  D.subsecciones.forEach(ss=>{
+    let body = '', sb = '';
+    ss.temas.forEach(t=>{
+      const fx = final(MOD, t);
+      if(FILTRO && !entra(fx).includes(FILTRO)) return;
+      if(t.s && t.s!==sb){ sb=t.s; body += `<div class="blockhead">${esc(sb)}</div>`; }
+      body += cardHTML(t, fx); shown++;
+    });
+    if(body) html += `<div class="subhead">${esc(ss.nombre)}</div>` + body;
+  });
+  if(!shown) html += `<div class="empty">No hay temas para ${YLABEL[FILTRO]} en este módulo.</div>`;
+  $('#modBody').innerHTML = html;
+}
+
+function cardHTML(t, fx){
+  const mia = MIAS[MOD+'::'+t.id] || {};
+  const flagged = !!mia.marcado;
+  const doms = fx.ejes ? `<div class="doms">${EJES.map(ej=>`<div class="dom"><span>${ej.label}</span>
+      <span class="yr ${YCLS[fx.ejes[ej.k]]||''}">${YLABEL[fx.ejes[ej.k]]||'—'}</span></div>`).join('')}</div>` : '';
+  return `<div class="tcard${flagged?' flagged open':''}" data-id="${t.id}">
+    <div class="trow"><div class="ttext">${esc(t.t)}</div>
+      ${fx.ejes?'':`<span class="yr ${YCLS[fx.anio]}">${YLABEL[fx.anio]}</span>`}</div>
+    ${fx.discusion?'<span class="disc">En discusión en el staff</span>':''}
+    ${doms}
+    <span class="flagbtn" data-open="1">⚠ Algo no calza</span>
+    <div class="flagbox">
+      <div class="q">¿En qué año crees que debería estar? <i>(opcional)</i></div>
+      <div class="chips">${['R1','R2','R3','F'].map(l=>`<button class="chip ${YCLS[l]}${mia.anio_sugerido===l?' on':''}" data-y="${l}">${YLABEL[l]}</button>`).join('')}</div>
+      <textarea class="cmt" placeholder="¿Qué te parece mal? (ambiguo, muy temprano, muy tarde, falta algo…)">${esc(mia.comentario||'')}</textarea>
+      <div class="row2"><span class="unflag" data-unflag="1">Quitar marca</span><span class="saved">Guardado ✓</span></div>
+    </div>
+  </div>`;
+}
+
+function findTema(id){
+  for(const ss of DATA[MOD].subsecciones){ const t = ss.temas.find(x=>x.id===id); if(t) return t; }
+}
+function guardar(card, t){
+  const k = MOD+'::'+t.id, mia = MIAS[k], fx = final(MOD, t);
+  post({accion:'residente', residente:RESIDENTE, modulo:MOD, tema_id:t.id, tema:t.t,
+        anio_mostrado: fx.ejes ? EJES.map(e=>YLABEL[fx.ejes[e.k]]).join('/') : YLABEL[fx.anio],
+        anio_sugerido: mia.anio_sugerido||'', marcado: !!mia.marcado, comentario: mia.comentario||''})
+    .then(()=>card.classList.add('ok'))
+    .catch(()=>toast('No se pudo guardar — revisa tu conexión', 3000));
+}
+
+$('#modBody').addEventListener('click', e=>{
+  const f = e.target.closest('[data-f]');
+  if(f){ FILTRO = f.dataset.f; renderMod(); return; }
+  const card = e.target.closest('.tcard'); if(!card) return;
+  const t = findTema(card.dataset.id), k = MOD+'::'+t.id;
+  const mia = MIAS[k] = MIAS[k] || {modulo:MOD, tema_id:t.id};
+
+  if(e.target.closest('[data-open]')){
+    const opening = !card.classList.contains('open');
+    card.classList.toggle('open', opening);
+    if(opening && !mia.marcado){ mia.marcado = true; card.classList.add('flagged'); guardar(card, t); }
+    return;
+  }
+  if(e.target.closest('[data-unflag]')){
+    mia.marcado = false; mia.anio_sugerido = ''; mia.comentario = '';
+    card.classList.remove('flagged','open','ok');
+    card.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+    card.querySelector('.cmt').value = '';
+    guardar(card, t); toast('Marca quitada'); return;
+  }
+  const y = e.target.closest('[data-y]');
+  if(y){
+    mia.anio_sugerido = (mia.anio_sugerido===y.dataset.y) ? '' : y.dataset.y;
+    card.querySelectorAll('[data-y]').forEach(c=>c.classList.toggle('on', c.dataset.y===mia.anio_sugerido));
+    mia.marcado = true; guardar(card, t);
+  }
+});
+$('#modBody').addEventListener('change', e=>{
+  if(!e.target.classList.contains('cmt')) return;
+  const card = e.target.closest('.tcard'), t = findTema(card.dataset.id), k = MOD+'::'+t.id;
+  const mia = MIAS[k] = MIAS[k] || {modulo:MOD, tema_id:t.id};
+  mia.comentario = e.target.value; mia.marcado = true; guardar(card, t);
+});
+$('#back').onclick = ()=>{ renderHome(); go('home'); };
+
+boot();
+</script>
+</body>
+</html>
