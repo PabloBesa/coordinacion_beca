@@ -95,6 +95,11 @@
   .saved{font-size:10px;color:var(--green);font-weight:600;visibility:hidden;}
   .tcard.ok .saved{visibility:visible;}
 
+  .falta{margin-top:26px;border:1px dashed var(--border);border-radius:9px;padding:13px;}
+  .falta .q{font-size:11.5px;color:var(--text-muted);line-height:1.55;}
+  .falta .q b{color:var(--navy);font-family:'Playfair Display',serif;font-size:13px;display:block;margin-bottom:2px;}
+  .sendbtn{margin-top:8px;width:100%;background:var(--navy);color:#fff;border:none;border-radius:8px;padding:10px;
+    font-family:'Playfair Display',serif;font-size:13px;font-weight:600;cursor:pointer;}
   .empty{text-align:center;padding:24px;color:var(--text-muted);font-style:italic;font-size:12.5px;}
   .loading{text-align:center;padding:36px 20px;color:var(--text-muted);font-style:italic;font-size:13px;}
   .status{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;background:var(--navy);color:#fff;
@@ -203,6 +208,10 @@ function final(mod, t){
   }
   return {anio, ejes, discusion: !!mk.conflictivo};
 }
+// Temas que el staff propone eliminar (comentario "Eliminar…" / "Repetido, eliminar"):
+// se ocultan. "Eliminar de <sección>" (mover) y "Eliminar o …" (dudoso) se muestran.
+const RX_ELIM = /^\s*(repetido,?\s*)?eliminar(?!\s+(de|o)\b)/i;
+function eliminado(mod, t){ const mk = STAFF[mod+'::'+t.id]; return !!(mk && RX_ELIM.test(mk.comentario||'')); }
 // Año en que el tema "se toca" por primera vez (para el filtro)
 function entra(fx){ return fx.ejes ? [fx.ejes.eje_diagnostico, fx.ejes.eje_decision, fx.ejes.eje_experto] : [fx.anio]; }
 
@@ -225,7 +234,8 @@ function renderHome(){
   let html = `<div class="note">Esta es la <b>primera versión</b> del temario después de la revisión del staff: para cada tema, el año en que se espera que lo domines. Los temas de patología y cirugía se desglosan en tres ejes (diagnóstico, decisión terapéutica, quirúrgico).<br><br>
     Te pedimos que lo recorras y marques <b>⚠ Algo no calza</b> en lo que te parezca mal ubicado, ambiguo o que falte. Se guarda solo.</div>`;
   html += LISTOS.filter(k=>DATA[k]).map(k=>{
-    const M = MODULOS[k], tot = DATA[k].subsecciones.reduce((a,s)=>a+s.temas.length,0), n = nMias(k);
+    const M = MODULOS[k], n = nMias(k);
+    const tot = DATA[k].subsecciones.reduce((a,s)=>a+s.temas.filter(t=>!eliminado(k,t)).length,0);
     return `<div class="modcard" data-mod="${k}"><div class="num">${M.num}</div><div>
       <div class="mt">${esc(M.nombre)}</div><div class="ms">${tot} temas</div>
       ${n?`<div class="mflag">Marcaste ${n} tema${n>1?'s':''}</div>`:''}</div></div>`;
@@ -251,6 +261,7 @@ function renderMod(){
   D.subsecciones.forEach(ss=>{
     let body = '', sb = '';
     ss.temas.forEach(t=>{
+      if(eliminado(MOD, t)) return;
       const fx = final(MOD, t);
       if(FILTRO && !entra(fx).includes(FILTRO)) return;
       if(t.s && t.s!==sb){ sb=t.s; body += `<div class="blockhead">${esc(sb)}</div>`; }
@@ -259,6 +270,9 @@ function renderMod(){
     if(body) html += `<div class="subhead">${esc(ss.nombre)}</div>` + body;
   });
   if(!shown) html += `<div class="empty">No hay temas para ${YLABEL[FILTRO]} en este módulo.</div>`;
+  html += `<div class="falta"><div class="q"><b>¿Falta algún tema?</b> Algunos temas del temario oficial se sacaron por repetidos o poco útiles. Si echas de menos algo, escríbelo aquí.</div>
+    <textarea class="cmt" id="faltaTxt" placeholder="Tema que falta y en qué año lo pondrías"></textarea>
+    <button class="sendbtn" id="faltaBtn">Enviar</button></div>`;
   $('#modBody').innerHTML = html;
 }
 
@@ -297,6 +311,14 @@ function guardar(card, t){
 $('#modBody').addEventListener('click', e=>{
   const f = e.target.closest('[data-f]');
   if(f){ FILTRO = f.dataset.f; renderMod(); return; }
+  if(e.target.id==='faltaBtn'){
+    const txt = $('#faltaTxt').value.trim(); if(!txt){ toast('Escribe el tema primero'); return; }
+    post({accion:'residente', residente:RESIDENTE, modulo:MOD, tema_id:'falta-'+Date.now(), tema:txt,
+          anio_mostrado:'', anio_sugerido:'', marcado:true, comentario:'Tema que falta'})
+      .then(()=>{ $('#faltaTxt').value=''; toast('Enviado ✓ Gracias'); })
+      .catch(()=>toast('No se pudo enviar — revisa tu conexión', 3000));
+    return;
+  }
   const card = e.target.closest('.tcard'); if(!card) return;
   const t = findTema(card.dataset.id), k = MOD+'::'+t.id;
   const mia = MIAS[k] = MIAS[k] || {modulo:MOD, tema_id:t.id};
