@@ -1,0 +1,660 @@
+{
+ "modulo": "Rodilla",
+ "programa": "Posgrado Traumatología y Ortopedia UC",
+ "version": "1.0",
+ "fecha": "2026-11-10",
+ "estado": "Cerrado por coordinación; revisado por jefe de residentes",
+ "niveles": {
+  "R1": "Primer año",
+  "R2": "Segundo año",
+  "R3": "Tercer año",
+  "F": "Fellow: techo de contenido, más allá de la residencia"
+ },
+ "ejes": {
+  "diagnostico": "Diagnóstico-clínico: reconocer, examinar, estudiar.",
+  "decision": "Decisión terapéutica: indicar el manejo correcto.",
+  "quirurgico": "Quirúrgico: dominio de la cirugía. null = no aplica (sin cirugía específica)."
+ },
+ "reglas_para_preguntas": [
+  "Cada tema se evalúa al nivel de su año (\"anio\"); con ejes, cada eje se evalúa a su propio nivel.",
+  "Eje quirúrgico = F significa cirugía de subespecialista: el residente debe conocer indicaciones, pasos y lógica de la técnica (preguntable a nivel R3), pero no se espera que la realice.",
+  "Temas tipo \"general\" tienen un solo año, sin ejes.",
+  "Temas con urgencia=true se esperan desde R1 en su reconocimiento y manejo inicial."
+ ],
+ "temas": [
+  {
+   "id": "rodilla-001",
+   "tipo": "general",
+   "bloque": "Bases y evaluación",
+   "tema": "Conocimiento de anatomía de superficie",
+   "anio": "R1",
+   "ejes": null,
+   "origen": "temario 2023 (nivel 1.1)"
+  },
+  {
+   "id": "rodilla-002",
+   "tipo": "general",
+   "bloque": "Bases y evaluación",
+   "tema": "Estructuras neurales y vasculares, y su relación con abordajes quirúrgicos anteriores y posteriores",
+   "anio": "R1",
+   "ejes": null,
+   "origen": "temario 2023 (nivel 1.1)"
+  },
+  {
+   "id": "rodilla-003",
+   "tipo": "general",
+   "bloque": "Bases y evaluación",
+   "tema": "Anatomía funcional de ligamentos y músculos",
+   "anio": "R1",
+   "ejes": null,
+   "origen": "temario 2023 (nivel 1.1)"
+  },
+  {
+   "id": "rodilla-004",
+   "tipo": "general",
+   "bloque": "Bases y evaluación",
+   "tema": "Inervación de la rodilla y músculos",
+   "anio": "R1",
+   "ejes": null,
+   "origen": "temario 2023 (nivel 1.1)"
+  },
+  {
+   "id": "rodilla-005",
+   "tipo": "general",
+   "bloque": "Bases y evaluación",
+   "tema": "Extensión y función de la sinovial y bursas",
+   "anio": "R1",
+   "ejes": null,
+   "origen": "temario 2023 (nivel 1.1)"
+  },
+  {
+   "id": "rodilla-006",
+   "tipo": "general",
+   "bloque": "Bases y evaluación",
+   "tema": "Estructura y función de meniscos y cartílago articular",
+   "anio": "R1",
+   "ejes": null,
+   "origen": "temario 2023 (nivel 1.1)"
+  },
+  {
+   "id": "rodilla-007",
+   "tipo": "general",
+   "bloque": "Bases y evaluación",
+   "tema": "Biomecánica patelofemoral",
+   "anio": "R2",
+   "ejes": null,
+   "origen": "temario 2023 (nivel 1.2)"
+  },
+  {
+   "id": "rodilla-008",
+   "tipo": "general",
+   "bloque": "Bases y evaluación",
+   "tema": "Compartimientos medial y lateral como articulaciones de carga",
+   "anio": "R1",
+   "ejes": null,
+   "origen": "temario 2023 (nivel 1.2)"
+  },
+  {
+   "id": "rodilla-009",
+   "tipo": "general",
+   "bloque": "Bases y evaluación",
+   "tema": "Ligamentos cruzados y colaterales como estabilizadores de la rodilla",
+   "anio": "R1",
+   "ejes": null,
+   "origen": "temario 2023 (nivel 1.2)"
+  },
+  {
+   "id": "rodilla-010",
+   "tipo": "general",
+   "bloque": "Bases y evaluación",
+   "tema": "Meniscos y cartílago articular",
+   "anio": "R1",
+   "ejes": null,
+   "origen": "temario 2023 (nivel 1.2)"
+  },
+  {
+   "id": "rodilla-011",
+   "tipo": "general",
+   "bloque": "Bases y evaluación",
+   "tema": "Mecanismos de trauma ligamentosos, óseos y combinados, y su cicatrización",
+   "anio": "R1",
+   "ejes": null,
+   "origen": "temario 2023 (nivel 1.2)"
+  },
+  {
+   "id": "rodilla-015",
+   "tipo": "general",
+   "bloque": "Bases y evaluación",
+   "tema": "Historia y examen físico de la rodilla y estructuras anexas",
+   "anio": "R1",
+   "ejes": null,
+   "origen": "temario 2023 (nivel 1.1)"
+  },
+  {
+   "id": "rodilla-016",
+   "tipo": "general",
+   "bloque": "Bases y evaluación",
+   "tema": "Conocimiento clínico de score funcionales de uso frecuente",
+   "anio": "R2",
+   "ejes": null,
+   "alcance": "IKDC, Lysholm, KOOS, WOMAC, Tegner: qué miden y cuándo usarlos.",
+   "origen": "temario 2023 (nivel 2.1)"
+  },
+  {
+   "id": "rodilla-019",
+   "tipo": "general",
+   "bloque": "Bases y evaluación",
+   "tema": "TAC, RNM, exámenes de medicina nuclear",
+   "anio": "R1",
+   "ejes": null,
+   "alcance": "R1 describe e interpreta los hallazgos principales (meniscos, ligamentos, fracturas en TAC); la interpretación fina se profundiza en R2.",
+   "origen": "temario 2023 (nivel 1.2)"
+  },
+  {
+   "id": "rodilla-021",
+   "tipo": "general",
+   "bloque": "Bases y evaluación",
+   "tema": "Test biomecánicos",
+   "anio": "R2",
+   "ejes": null,
+   "alcance": "KT-1000 / artrometría y radiografías en estrés.",
+   "origen": "temario 2023 (nivel 2.1)"
+  },
+  {
+   "id": "nuevo-artrocentesis",
+   "tipo": "general",
+   "bloque": "Bases y evaluación",
+   "tema": "Artrocentesis e infiltración de rodilla",
+   "anio": "R1",
+   "ejes": null,
+   "alcance": "Técnica, indicaciones, análisis del líquido articular.",
+   "origen": "nuevo 2026"
+  },
+  {
+   "id": "rodilla-013",
+   "tipo": "patologia",
+   "bloque": "Patología y manejo",
+   "tema": "Artropatías inflamatorias (artritis reumatoide, espondiloartropatías, artropatía por cristales)",
+   "anio": "R1",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R1",
+    "quirurgico": null
+   },
+   "alcance": "Conocer y diagnosticar; manejo inicial y derivación a reumatología. No hay cirugía específica: la cirugía es la convencional con ajustes perioperatorios (FAME, biológicos, calidad ósea).",
+   "origen": "temario 2023 (nivel 2.1)"
+  },
+  {
+   "id": "nuevo-artrosis",
+   "tipo": "patologia",
+   "bloque": "Patología y manejo",
+   "tema": "Artrosis de rodilla: diagnóstico y manejo no quirúrgico",
+   "anio": "R1",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R1",
+    "quirurgico": null
+   },
+   "alcance": "Clínica, imagen, clasificación, manejo médico, kinesiología e infiltraciones. Las opciones quirúrgicas están en Cirugía electiva (OTA, UNI, PTR, osteotomías).",
+   "origen": "nuevo 2026"
+  },
+  {
+   "id": "rodilla-025",
+   "tipo": "patologia",
+   "bloque": "Patología y manejo",
+   "tema": "Patología traumática, incluidas lesiones de piel y tejidos blandos, fracturas y luxaciones patelares, femorales y de tibia. Manejo conservador y quirúrgico, indicaciones y pronóstico",
+   "anio": "R1",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R1",
+    "quirurgico": "R2"
+   },
+   "alcance": "Incluye lesiones de piel y partes blandas y artrotomía traumática.",
+   "origen": "temario 2023 (nivel 1.1)"
+  },
+  {
+   "id": "rodilla-026",
+   "tipo": "patologia",
+   "bloque": "Patología y manejo",
+   "tema": "Patología traumática, incluidas lesiones ligamentosas intra y extraarticulares. Manejo conservador y quirúrgico, indicaciones y pronóstico",
+   "anio": "R1",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R1",
+    "quirurgico": null
+   },
+   "alcance": "Visión general y manejo inicial; la cirugía específica está en los temas de cada ligamento.",
+   "origen": "temario 2023 (nivel 1.2)"
+  },
+  {
+   "id": "nuevo-meniscal",
+   "tipo": "patologia",
+   "bloque": "Patología y manejo",
+   "tema": "Lesiones meniscales (incluye raíz y bloqueo articular)",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R2",
+    "quirurgico": "F"
+   },
+   "alcance": "Diagnóstico clínico y por RM, indicación de meniscectomía vs. reparación. Cirugía de subespecialista: se espera que el residente conozca indicaciones, pasos y lógica de la técnica (evaluable a nivel R3), no que la realice.",
+   "origen": "nuevo 2026"
+  },
+  {
+   "id": "nuevo-colaterales",
+   "tipo": "patologia",
+   "bloque": "Patología y manejo",
+   "tema": "Esguince de rodilla y lesiones de ligamentos colaterales",
+   "anio": "R1",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R1",
+    "quirurgico": "R2"
+   },
+   "origen": "nuevo 2026"
+  },
+  {
+   "id": "nuevo-lcp-esquinas",
+   "tipo": "patologia",
+   "bloque": "Patología y manejo",
+   "tema": "Lesión de LCP y de esquinas posteromedial y posterolateral",
+   "anio": "R3",
+   "ejes": {
+    "diagnostico": "R2",
+    "decision": "R3",
+    "quirurgico": "F"
+   },
+   "alcance": "Cirugía de subespecialista: se espera que el residente conozca indicaciones, pasos y lógica de la técnica (evaluable a nivel R3), no que la realice.",
+   "origen": "nuevo 2026"
+  },
+  {
+   "id": "nuevo-luxacion",
+   "tipo": "patologia",
+   "bloque": "Patología y manejo",
+   "tema": "Luxación de rodilla y lesiones multiligamentarias (incluye evaluación vascular)",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R2",
+    "quirurgico": "F"
+   },
+   "alcance": "Desde R1: reconocer, reducir, evaluar compromiso vascular (ITB, angioTAC) y estabilizar. Cirugía de subespecialista: se espera que el residente conozca indicaciones, pasos y lógica de la técnica (evaluable a nivel R3), no que la realice.",
+   "urgencia": true,
+   "origen": "nuevo 2026"
+  },
+  {
+   "id": "rodilla-027",
+   "tipo": "patologia",
+   "bloque": "Patología y manejo",
+   "tema": "Artritis séptica",
+   "anio": "R1",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R1",
+    "quirurgico": "R1"
+   },
+   "alcance": "Incluye punción diagnóstica y aseo articular abierto o artroscópico.",
+   "urgencia": true,
+   "origen": "temario 2023 (nivel 1.1)"
+  },
+  {
+   "id": "nuevo-ipp",
+   "tipo": "patologia",
+   "bloque": "Patología y manejo",
+   "tema": "Infección periprotésica de rodilla",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R2",
+    "quirurgico": "R3"
+   },
+   "alcance": "R1 sospecha y estudio (criterios ICM/EBJIS); R2 decisión; R3 aseo y DAIR.",
+   "origen": "nuevo 2026"
+  },
+  {
+   "id": "rodilla-033",
+   "tipo": "patologia",
+   "bloque": "Patología y manejo",
+   "tema": "Conocimiento de técnicas de manejo médico y quirúrgico de las lesiones osteocondrales",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R2",
+    "quirurgico": "R3"
+   },
+   "origen": "temario 2023 (nivel 2.1)"
+  },
+  {
+   "id": "nuevo-osteonecrosis",
+   "tipo": "patologia",
+   "bloque": "Patología y manejo",
+   "tema": "Osteonecrosis de rodilla (espontánea y secundaria)",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R2",
+    "quirurgico": "R3"
+   },
+   "origen": "nuevo 2026"
+  },
+  {
+   "id": "nuevo-sobreuso",
+   "tipo": "patologia",
+   "bloque": "Patología y manejo",
+   "tema": "Patología por sobreuso y quística: tendinopatía patelar y cuadricipital, pata de ganso, banda iliotibial, quiste poplíteo",
+   "anio": "R1",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R1",
+    "quirurgico": "R2"
+   },
+   "origen": "nuevo 2026"
+  },
+  {
+   "id": "rodilla-034",
+   "tipo": "patologia",
+   "bloque": "Cirugía de trauma",
+   "tema": "Fractura diafisiaria de fémur",
+   "anio": "R1",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R1",
+    "quirurgico": "R2"
+   },
+   "origen": "temario 2023 (nivel 1.1)"
+  },
+  {
+   "id": "rodilla-040",
+   "tipo": "patologia",
+   "bloque": "Cirugía de trauma",
+   "tema": "Reducción y fijación en fracturas de fémur distal",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R2",
+    "quirurgico": "R3"
+   },
+   "origen": "temario 2023 (nivel 1.1)"
+  },
+  {
+   "id": "rodilla-041",
+   "tipo": "patologia",
+   "bloque": "Cirugía de trauma",
+   "tema": "Manejo en inestabilidad patelar",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R2",
+    "quirurgico": "F"
+   },
+   "origen": "temario 2023 (nivel 2.1)"
+  },
+  {
+   "id": "rodilla-042",
+   "tipo": "patologia",
+   "bloque": "Cirugía de trauma",
+   "tema": "Reducción abierta de fractura de patela",
+   "anio": "R1",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R1",
+    "quirurgico": "R2"
+   },
+   "origen": "temario 2023 (nivel 1.1)"
+  },
+  {
+   "id": "rodilla-043",
+   "tipo": "patologia",
+   "bloque": "Cirugía de trauma",
+   "tema": "Reparación tendones patelar y cuadricipital",
+   "anio": "R1",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R1",
+    "quirurgico": "R2"
+   },
+   "origen": "temario 2023 (nivel 1.2)"
+  },
+  {
+   "id": "rodilla-044",
+   "tipo": "patologia",
+   "bloque": "Cirugía de trauma",
+   "tema": "Fracturas de platillos tibiales",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R2",
+    "quirurgico": "R3"
+   },
+   "alcance": "Incluye fracturas bicondíleas y abordajes posteriores.",
+   "origen": "temario 2023 (nivel 1.1)"
+  },
+  {
+   "id": "rodilla-047",
+   "tipo": "procedimiento",
+   "bloque": "Cirugía de trauma",
+   "tema": "Fijación externa",
+   "anio": "R1",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R1",
+    "quirurgico": "R2"
+   },
+   "alcance": "Fijador transarticular de control de daños: se espera desde R1.",
+   "origen": "temario 2023 (nivel 1.1)"
+  },
+  {
+   "id": "nuevo-fx-periprotesica",
+   "tipo": "patologia",
+   "bloque": "Cirugía de trauma",
+   "tema": "Fracturas periprotésicas de rodilla",
+   "anio": "R3",
+   "ejes": {
+    "diagnostico": "R2",
+    "decision": "R3",
+    "quirurgico": "F"
+   },
+   "origen": "nuevo 2026"
+  },
+  {
+   "id": "rodilla-051",
+   "tipo": "procedimiento",
+   "bloque": "Cirugía electiva y reemplazo",
+   "tema": "Artroscopia diagnóstica",
+   "anio": "R1",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R1",
+    "quirurgico": "R1"
+   },
+   "alcance": "Incluye indicaciones, setup, portales, exploración sistemática y reconocimiento de hallazgos. Integra los temas 2023 \"Artroscopia\" y \"Técnica de artroscopia simple\"; la meniscectomía está en su propio tema.",
+   "origen": "temario 2023 (nivel 2.1)"
+  },
+  {
+   "id": "rodilla-053",
+   "tipo": "procedimiento",
+   "bloque": "Cirugía electiva y reemplazo",
+   "tema": "Meniscectomía parcial",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R2",
+    "quirurgico": "R2"
+   },
+   "origen": "temario 2023 (nivel 2.1)"
+  },
+  {
+   "id": "nuevo-reparacion-meniscal",
+   "tipo": "procedimiento",
+   "bloque": "Cirugía electiva y reemplazo",
+   "tema": "Reparación meniscal",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R2",
+    "decision": "R2",
+    "quirurgico": "F"
+   },
+   "alcance": "Cirugía de subespecialista: se espera que el residente conozca indicaciones, pasos y lógica de la técnica (evaluable a nivel R3), no que la realice.",
+   "origen": "nuevo 2026"
+  },
+  {
+   "id": "rodilla-056",
+   "tipo": "procedimiento",
+   "bloque": "Cirugía electiva y reemplazo",
+   "tema": "Reconstrucción LCA",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R2",
+    "quirurgico": "F"
+   },
+   "alcance": "Cirugía de subespecialista: se espera que el residente conozca indicaciones, pasos y lógica de la técnica (evaluable a nivel R3), no que la realice.",
+   "origen": "temario 2023 (nivel 2.1)"
+  },
+  {
+   "id": "rodilla-058",
+   "tipo": "procedimiento",
+   "bloque": "Cirugía electiva y reemplazo",
+   "tema": "Realineación patelar",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R2",
+    "quirurgico": "F"
+   },
+   "origen": "temario 2023 (nivel 2.1)"
+  },
+  {
+   "id": "rodilla-050",
+   "tipo": "procedimiento",
+   "bloque": "Cirugía electiva y reemplazo",
+   "tema": "Osteotomías de corrección",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R2",
+    "decision": "R2",
+    "quirurgico": "F"
+   },
+   "origen": "temario 2023 (nivel 2.1)"
+  },
+  {
+   "id": "rodilla-057",
+   "tipo": "procedimiento",
+   "bloque": "Cirugía electiva y reemplazo",
+   "tema": "Osteotomía proximal de tibia",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R2",
+    "decision": "R2",
+    "quirurgico": "F"
+   },
+   "origen": "temario 2023 (nivel 2.1)"
+  },
+  {
+   "id": "rodilla-029",
+   "tipo": "patologia",
+   "bloque": "Cirugía electiva y reemplazo",
+   "tema": "Tipos de artroplastias primarias y de revisión para cirugía patelofemoral, unicompartimental y total de rodilla. Comprensión de conceptos de alineación, perdida ósea, estabilidad ligamentosa, rangos de movimiento complicaciones postoperatorias y su prevención y manejo",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R2",
+    "quirurgico": "R3"
+   },
+   "alcance": "Conceptos de alineación, pérdida ósea, estabilidad, rango y complicaciones.",
+   "origen": "temario 2023 (nivel 2.1)"
+  },
+  {
+   "id": "rodilla-060",
+   "tipo": "procedimiento",
+   "bloque": "Cirugía electiva y reemplazo",
+   "tema": "Prótesis total de rodilla",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R1",
+    "decision": "R2",
+    "quirurgico": "F"
+   },
+   "alcance": "Cirugía de subespecialista: se espera que el residente conozca indicaciones, pasos y lógica de la técnica (evaluable a nivel R3), no que la realice.",
+   "origen": "temario 2023 (nivel 2.1)"
+  },
+  {
+   "id": "rodilla-061",
+   "tipo": "procedimiento",
+   "bloque": "Cirugía electiva y reemplazo",
+   "tema": "Prótesis unicompartimental de rodilla",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R2",
+    "decision": "R2",
+    "quirurgico": "F"
+   },
+   "origen": "temario 2023 (nivel 2.2)"
+  },
+  {
+   "id": "rodilla-059",
+   "tipo": "procedimiento",
+   "bloque": "Cirugía electiva y reemplazo",
+   "tema": "Prótesis femoropatelar",
+   "anio": "R2",
+   "ejes": {
+    "diagnostico": "R2",
+    "decision": "R2",
+    "quirurgico": "F"
+   },
+   "origen": "temario 2023 (nivel 2.2)"
+  },
+  {
+   "id": "rodilla-030",
+   "tipo": "patologia",
+   "bloque": "Cirugía electiva y reemplazo",
+   "tema": "Conocimiento de las indicaciones de cirugías de revisión, incluidas aflojamiento aséptico y séptico",
+   "anio": "R3",
+   "ejes": {
+    "diagnostico": "R2",
+    "decision": "R3",
+    "quirurgico": "F"
+   },
+   "origen": "temario 2023 (nivel 2.2)"
+  },
+  {
+   "id": "rodilla-062",
+   "tipo": "procedimiento",
+   "bloque": "Cirugía electiva y reemplazo",
+   "tema": "Revisión de prótesis de rodilla",
+   "anio": "R3",
+   "ejes": {
+    "diagnostico": "R2",
+    "decision": "R3",
+    "quirurgico": "F"
+   },
+   "alcance": "Indicación de revisión es R3; la cirugía es de subespecialista.",
+   "origen": "temario 2023 (nivel 2.2)"
+  }
+ ],
+ "excluidos_del_temario_2023": {
+  "rodilla-012": "Muy genérico",
+  "rodilla-014": "Genérico (ver artritis séptica e infección periprotésica)",
+  "rodilla-017": "Repetido (Adulto general)",
+  "rodilla-018": "Repetido (artrocentesis)",
+  "rodilla-020": "Fusionado en \"Artroscopia diagnóstica\"",
+  "rodilla-031": "Fusionado en \"Artroscopia diagnóstica\"",
+  "rodilla-022": "Pediátrico: cubierto en módulo Infantil",
+  "rodilla-023": "Adolescente: cubierto en módulo Infantil",
+  "rodilla-024": "Dividido en \"Artropatías inflamatorias\" y \"Artrosis: manejo no quirúrgico\"",
+  "rodilla-028": "Reemplazado por \"Infección periprotésica de rodilla\"",
+  "rodilla-032": "Eliminado por staff",
+  "rodilla-035": "Eliminado por staff",
+  "rodilla-036": "Repetido",
+  "rodilla-037": "Repetido",
+  "rodilla-038": "Eliminado por staff",
+  "rodilla-039": "Reemplazado por luxación/multiligamentario, LCP/esquinas y colaterales",
+  "rodilla-045": "Eliminado por staff",
+  "rodilla-046": "Eliminado por staff",
+  "rodilla-048": "Duplicado en Cadera (cadera-076)",
+  "rodilla-049": "Eliminado por staff",
+  "rodilla-052": "Eliminado por staff",
+  "rodilla-054": "Eliminado por staff",
+  "rodilla-055": "Eliminado por staff"
+ }
+}
